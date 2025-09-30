@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Calendar, Clock, ArrowLeft, Handshake, TrendingDown } from 'lucide-react';
+import { Calendar, Clock, ArrowLeft, TrendingDown } from 'lucide-react';
 
 export const metadata = {
   title: 'How to Negotiate 10% Off Any Rental Property | Rental Scout Pro',
