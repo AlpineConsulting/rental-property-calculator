@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://rentalscoutpro.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://unclepoocher.com'),
   alternates: {
     canonical: '/',
   },
@@ -131,8 +131,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "Rental Property Calculator",
-              "url": process.env.NEXT_PUBLIC_SITE_URL || "https://rentalscoutpro.com",
-              "logo": `${process.env.NEXT_PUBLIC_SITE_URL || "https://rentalscoutpro.com"}/logo.png`,
+              "url": process.env.NEXT_PUBLIC_SITE_URL || "https://unclepoocher.com",
+              "logo": `${process.env.NEXT_PUBLIC_SITE_URL || "https://unclepoocher.com"}/logo.png`,
               "description": "Free rental property calculator and real estate investment analysis tools for investors, landlords, and real estate professionals",
               "foundingDate": "2025",
               "sameAs": [
@@ -157,7 +157,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebApplication",
               "name": "Rental Property Calculator",
-              "url": `${process.env.NEXT_PUBLIC_SITE_URL || "https://rentalscoutpro.com"}/calculator`,
+              "url": `${process.env.NEXT_PUBLIC_SITE_URL || "https://unclepoocher.com"}/calculator`,
               "description": "Free online calculator for analyzing rental property investments, cash flow, ROI, and cap rates",
               "applicationCategory": "FinanceApplication",
               "operatingSystem": "Any",
