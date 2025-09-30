@@ -316,5 +316,3 @@ declare global {
     plausible?: (eventName: string, options?: { props?: any }) => void;
   }
 }
-
-export type { AffiliateLink };
