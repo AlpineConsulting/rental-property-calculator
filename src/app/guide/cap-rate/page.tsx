@@ -267,7 +267,7 @@ export default function CapRateGuidePage() {
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             <Link 
-              href="/guide/cash-flow-analysis"
+              href="/guide/cash-flow"
               className="p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all"
             >
               <h4 className="font-bold text-gray-900 mb-2">Cash Flow Analysis Guide</h4>
