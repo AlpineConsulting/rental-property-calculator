@@ -387,7 +387,7 @@ export default function CashFlowGuidePage() {
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             <Link 
-              href="/guide/cap-rate-explained"
+              href="/guide/cap-rate"
               className="p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all"
             >
               <h4 className="font-bold text-gray-900 mb-2">Cap Rate Explained</h4>
