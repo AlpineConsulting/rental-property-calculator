@@ -47,6 +47,7 @@ export default function AffiliateCallToAction() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold mb-4">
             <Sparkles className="w-4 h-4 mr-2" />
+            What will grow your business most right now?
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
           </h2>
