@@ -183,10 +183,12 @@ export default function HomePage() {
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-green-600/20 rounded-3xl blur-3xl transform scale-105"></div>
             <div className="relative">
               <RentalPropertyCalculator />
-              <AffiliateCallToAction />
             </div>
           </div>
-
+          
+          {/* Affiliate Call to Action*/}
+          <AffiliateCallToAction />
+          
           {/* Call to Action Below Calculator */}
           <div className="text-center mt-12">
             <p className="text-lg text-gray-600 mb-6">
