@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Calendar, Clock, ArrowLeft, Handshake, TrendingDown } from 'lucide-react';
+import { Calendar, Clock, ArrowLeft, TrendingDown, ExternalLink } from 'lucide-react';
+import { affiliateConfig } from '@/utils/affiliateConfig';
 
 export const metadata = {
   title: 'How to Negotiate 10% Off Any Rental Property | Rental Scout Pro',
@@ -31,7 +32,7 @@ export default function NegotiateBlogPost() {
           <div className="flex items-center gap-6 text-green-100">
             <div className="flex items-center">
               <Calendar className="w-4 h-4 mr-2" />
-              September 1, 2024
+              August 31
             </div>
             <div className="flex items-center">
               <Clock className="w-4 h-4 mr-2" />
@@ -296,19 +297,26 @@ export default function NegotiateBlogPost() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-green-600 to-blue-600 rounded-2xl p-8 text-center text-white mt-12">
-              <TrendingDown className="w-16 h-16 mx-auto mb-4" />
-              <h3 className="text-2xl font-bold mb-4">Calculate Your Negotiating Power</h3>
-              <p className="text-green-100 mb-6">
-                See how much a price reduction improves your cash flow and returns.
-              </p>
+          {/* Resource Banner */}
+          {affiliateConfig.showResourcesPage && (
+            <div className="mt-12 bg-gradient-to-r from-blue-600 to-green-600 rounded-2xl p-8 text-white shadow-xl">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-2">
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-2xl font-bold mb-2">Need Tools for Your Analysis?</h3>
+                <p className="text-blue-100 text-lg">
+                  Explore lenders, market data tools, and insurance options to support your investment.
+                </p>
+              </div>
               <Link 
-                href="/#calculator"
-                className="inline-flex items-center px-8 py-4 bg-white text-green-600 font-bold rounded-xl hover:bg-green-50 transition-colors shadow-lg"
+                href="/guide/resources"
+                className="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-colors shadow-lg whitespace-nowrap"
               >
-                Try Calculator Now
+                View Resources
+                <ExternalLink className="w-5 h-5 ml-2" />
               </Link>
             </div>
+            </div>
+          )}
 
           </div>
         </div>
@@ -317,11 +325,11 @@ export default function NegotiateBlogPost() {
           <h3 className="text-2xl font-bold text-gray-900 mb-6">Related Articles</h3>
           <div className="grid md:grid-cols-2 gap-4">
             <Link 
-              href="/guide/blog/should-you-buy-9-2024"
+              href="/guide/blog/one-percent-rule-expensive-markets-9-2025"
               className="p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all"
             >
-              <h4 className="font-bold text-gray-900 mb-2">Should You Buy in 2024?</h4>
-              <p className="text-gray-600 text-sm">Market conditions and timing strategies</p>
+              <h4 className="font-bold text-gray-900 mb-2">The Truth About the 1% Rule in Expensive Markets</h4>
+              <p className="text-gray-600 text-sm">Here's how to adapt your screening process for high-cost markets.</p>
             </Link>
             <Link 
               href="/guide/cash-flow"

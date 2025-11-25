@@ -100,6 +100,16 @@ export default function ResourcesPage() {
     }
   ];
 
+  const businessSoftware = [
+    {
+      name: 'QuickBooks',
+      description: 'Industry-leading accounting software for rental property businesses and real estate investors.',
+      features: ['Expense tracking', 'Tax preparation', 'Financial reports'],
+      url: '/go/quickbooks',
+      rating: 4.7
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
@@ -307,7 +317,7 @@ export default function ResourcesPage() {
       {/* Property Management & Education */}
       <section className="py-20 px-4 bg-white">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12">
+          <div className="grid md:grid-cols-3 gap-8">
             {/* Property Management */}
             <div>
               <div className="flex items-center mb-6">
@@ -316,7 +326,7 @@ export default function ResourcesPage() {
               </div>
 
               {propertyMgmt.map((tool, index) => (
-                <div key={index} className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl border-2 border-orange-200 hover:border-orange-400 hover:shadow-xl transition-all p-6">
+                <div key={index} className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl border-2 border-orange-200 hover:border-orange-400 hover:shadow-xl transition-all p-6 mb-6">
                   <div className="flex items-start justify-between mb-4">
                     <h3 className="text-xl font-bold text-gray-900">{tool.name}</h3>
                     <div className="flex items-center bg-yellow-50 px-3 py-1 rounded-full">
@@ -343,6 +353,47 @@ export default function ResourcesPage() {
                     className="inline-flex items-center justify-center w-full px-6 py-3 bg-gradient-to-r from-orange-600 to-orange-700 hover:from-orange-700 hover:to-orange-800 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-xl"
                   >
                     Start Free Trial
+                    <ExternalLink className="w-4 h-4 ml-2" />
+                  </a>
+                </div>
+              ))}
+            </div>
+
+            {/* Business Software */}
+            <div>
+              <div className="flex items-center mb-6">
+                <BookOpen className="w-7 h-7 text-teal-600 mr-3" />
+                <h2 className="text-2xl font-bold text-gray-900">Business Software</h2>
+              </div>
+
+              {businessSoftware.map((software, index) => (
+                <div key={index} className="bg-gradient-to-br from-teal-50 to-teal-100 rounded-2xl border-2 border-teal-200 hover:border-teal-400 hover:shadow-xl transition-all p-6 mb-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <h3 className="text-xl font-bold text-gray-900">{software.name}</h3>
+                    <div className="flex items-center bg-yellow-50 px-3 py-1 rounded-full">
+                      <Star className="w-4 h-4 text-yellow-500 mr-1" />
+                      <span className="font-bold text-yellow-700 text-sm">{software.rating}</span>
+                    </div>
+                  </div>
+                  
+                  <p className="text-gray-700 mb-4">{software.description}</p>
+
+                  <div className="space-y-2 mb-6">
+                    {software.features.map((feature, i) => (
+                      <div key={i} className="flex items-center text-sm text-gray-700">
+                        <div className="w-1.5 h-1.5 bg-teal-600 rounded-full mr-2"></div>
+                        {feature}
+                      </div>
+                    ))}
+                  </div>
+
+                  <a
+                    href={software.url}
+                    target="_blank"
+                    rel="nofollow sponsored noopener noreferrer"
+                    className="inline-flex items-center justify-center w-full px-6 py-3 bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-xl"
+                  >
+                    Try Free
                     <ExternalLink className="w-4 h-4 ml-2" />
                   </a>
                 </div>

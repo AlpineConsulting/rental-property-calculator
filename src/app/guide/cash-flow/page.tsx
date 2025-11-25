@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { DollarSign, Calculator, TrendingUp, BookOpen, ArrowLeft, CheckCircle, AlertTriangle } from 'lucide-react';
+import { DollarSign, Calculator, TrendingUp, BookOpen, ArrowLeft, CheckCircle, AlertTriangle, ExternalLink } from 'lucide-react';
+import { affiliateConfig } from '@/utils/affiliateConfig';
 
 export const metadata = {
   title: 'Cash Flow Analysis Guide for Rental Properties | Rental Scout Pro',
@@ -359,8 +360,55 @@ export default function CashFlowGuidePage() {
             </div>
           </section>
 
-          {/* Call to Action */}
-          <section className="bg-gradient-to-r from-green-600 to-blue-600 rounded-2xl p-8 text-center text-white">
+           {/* Resource Banner */}
+          {affiliateConfig.showResourcesPage && (
+            <div className="mt-12 bg-gradient-to-r from-blue-600 to-green-600 rounded-2xl p-8 text-white shadow-xl">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-2">
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-2xl font-bold mb-2">Need Tools for Your Analysis?</h3>
+                <p className="text-blue-100 text-lg">
+                  Explore lenders, market data tools, and insurance options to support your investment.
+                </p>
+              </div>
+              <Link 
+                href="/guide/resources"
+                className="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-colors shadow-lg whitespace-nowrap"
+              >
+                View Resources
+                <ExternalLink className="w-5 h-5 ml-2" />
+              </Link>
+            </div>
+            </div>
+          )}
+
+        </article>
+
+        {/* Related Guides */}
+        <div className="mt-12 bg-white rounded-2xl shadow-lg p-8">
+          <div className="flex items-center mb-6">
+            <BookOpen className="w-6 h-6 text-blue-600 mr-3" />
+            <h3 className="text-2xl font-bold text-gray-900">Related Guides</h3>
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            <Link 
+              href="/guide/cap-rate"
+              className="p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all"
+            >
+              <h4 className="font-bold text-gray-900 mb-2">Cap Rate Explained</h4>
+              <p className="text-gray-600 text-sm">Understanding capitalization rate for property analysis</p>
+            </Link>
+            <Link 
+              href="/guide/1-percent-rule"
+              className="p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all"
+            >
+              <h4 className="font-bold text-gray-900 mb-2">The 1% Rule Explained</h4>
+              <p className="text-gray-600 text-sm">Quick screening tool for evaluating rental properties</p>
+            </Link>
+          </div>
+        </div>
+
+        {/* Call to Action */}
+        <section className="bg-gradient-to-r from-green-600 to-blue-600 rounded-2xl p-8 text-center text-white mt-12">
             <Calculator className="w-16 h-16 mx-auto mb-4" />
             <h3 className="text-2xl font-bold mb-4">
               Calculate Cash Flow for Your Property
@@ -377,31 +425,6 @@ export default function CashFlowGuidePage() {
             </Link>
           </section>
 
-        </article>
-
-        {/* Related Guides */}
-        <div className="mt-12 bg-white rounded-2xl shadow-lg p-8">
-          <div className="flex items-center mb-6">
-            <BookOpen className="w-6 h-6 text-blue-600 mr-3" />
-            <h3 className="text-2xl font-bold text-gray-900">Related Guides</h3>
-          </div>
-          <div className="grid md:grid-cols-2 gap-4">
-            <Link 
-              href="/guide/cap-rate-explained"
-              className="p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all"
-            >
-              <h4 className="font-bold text-gray-900 mb-2">Cap Rate Explained</h4>
-              <p className="text-gray-600 text-sm">Understanding capitalization rate for property analysis</p>
-            </Link>
-            <Link 
-              href="/guide/1-percent-rule"
-              className="p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all"
-            >
-              <h4 className="font-bold text-gray-900 mb-2">The 1% Rule Explained</h4>
-              <p className="text-gray-600 text-sm">Quick screening tool for evaluating rental properties</p>
-            </Link>
-          </div>
-        </div>
       </div>
     </div>
   );

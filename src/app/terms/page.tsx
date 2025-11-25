@@ -26,37 +26,12 @@ export default function LegalPage() {
           </div>
         </div>
 
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-            <Scale className="w-8 h-8 text-blue-600" />
-          </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Legal Information
-          </h1>
-          <p className="text-gray-600">
-            Last Updated: [2025] | Effective Date: [September 30, 2025]
-          </p>
-        </div>
-
-        {/* Table of Contents */}
-        <nav className="bg-gray-50 rounded-xl p-6 mb-12">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Contents</h2>
-          <ul className="space-y-2">
-            <li><a href="#disclaimer" className="text-blue-600 hover:underline">1. Disclaimer & Important Notice</a></li>
-            <li><a href="#terms" className="text-blue-600 hover:underline">2. Terms of Service</a></li>
-            <li><a href="#privacy" className="text-blue-600 hover:underline">3. Privacy Policy</a></li>
-            <li><a href="#affiliates" className="text-blue-600 hover:underline">4. Affiliate Disclosures</a></li>
-            <li><a href="#contact" className="text-blue-600 hover:underline">5. Contact Information</a></li>
-          </ul>
-        </nav>
-
         {/* Section 1: Disclaimer */}
         <section id="disclaimer" className="mb-12">
           <div className="flex items-center mb-6">
             <Shield className="w-8 h-8 text-blue-600 mr-3" />
             <h2 className="text-3xl font-bold text-gray-900">
-              1. Disclaimer & Important Notice
+              Disclaimer & Important Notice
             </h2>
           </div>
           
@@ -87,20 +62,13 @@ export default function LegalPage() {
             <h3 className="text-xl font-bold text-gray-900 mt-6">Consult Qualified Professionals</h3>
             <p>
               Before making ANY real estate or investment decision, you MUST consult with qualified 
-              professionals including but not limited to:
+              professionals.
             </p>
-            <ul className="list-disc pl-6 space-y-1">
-              <li>Licensed real estate attorneys</li>
-              <li>Certified public accountants (CPAs) or tax professionals</li>
-              <li>Licensed financial advisors</li>
-              <li>Real estate agents or brokers</li>
-              <li>Property inspectors and appraisers</li>
-            </ul>
 
             <h3 className="text-xl font-bold text-gray-900 mt-6">No Guarantees</h3>
             <p>
               All calculations provided are ESTIMATES based on information YOU provide. We make 
-              NO WARRANTIES, express or implied, regarding:
+              NO WARRANTIES, express or implied, regarding or limited to:
             </p>
             <ul className="list-disc pl-6 space-y-1">
               <li>Accuracy of calculations</li>
@@ -114,11 +82,15 @@ export default function LegalPage() {
               YOU are solely responsible for:
             </p>
             <ul className="list-disc pl-6 space-y-1">
+              <li>Understanding the limitations of the calculator and the information provided</li>
+              <li>Using the calculator for informational purposes only</li>
+              <li>Not relying on the calculator as a sole source of information</li>
               <li>Verifying all calculations independently</li>
               <li>Conducting thorough due diligence on any property</li>
               <li>Understanding all risks associated with real estate investment</li>
               <li>Making your own informed investment decisions</li>
               <li>Complying with all applicable laws and regulations</li>
+              <li>Consulting with qualified professionals before making any decisions</li>
             </ul>
 
             <h3 className="text-xl font-bold text-gray-900 mt-6">Limitation of Liability</h3>
@@ -133,9 +105,9 @@ export default function LegalPage() {
 
         {/* Section 2: Terms of Service */}
         <section id="terms" className="mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">
-            2. Terms of Service
-          </h2>
+        <h3 className="text-xl font-bold text-gray-900 mt-6">
+            Terms of Service
+          </h3>
           
           <div className="prose prose-lg max-w-none text-gray-700 space-y-4">
             <p className="text-red-600 font-bold">
@@ -148,16 +120,6 @@ export default function LegalPage() {
               Service. If you do not agree, do not use this service.
             </p>
 
-            <h3 className="text-xl font-bold text-gray-900 mt-6">Use License</h3>
-            <p>
-              [ATTORNEY TO SPECIFY: Permitted uses, restrictions, intellectual property rights]
-            </p>
-
-            <h3 className="text-xl font-bold text-gray-900 mt-6">User Conduct</h3>
-            <p>
-              [ATTORNEY TO SPECIFY: Prohibited activities, acceptable use policy]
-            </p>
-
             <h3 className="text-xl font-bold text-gray-900 mt-6">No Warranty</h3>
             <p>
               This service is provided "AS IS" without warranties of any kind.
@@ -165,44 +127,16 @@ export default function LegalPage() {
           </div>
         </section>
 
-        {/* Section 3: Privacy Policy 
-        <section id="privacy" className="mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">
-            3. Privacy Policy
-          </h2>
-          
-          <div className="prose prose-lg max-w-none text-gray-700 space-y-4">
-            <p className="text-red-600 font-bold">
-              [ATTORNEY MUST DRAFT - GDPR/CCPA compliance required]
-            </p>
-
-            <h3 className="text-xl font-bold text-gray-900">Information We Collect</h3>
-            <p>
-              [ATTORNEY TO SPECIFY: What data you collect, how you collect it, cookies, analytics]
-            </p>
-
-            <h3 className="text-xl font-bold text-gray-900 mt-6">How We Use Information</h3>
-            <p>
-              [ATTORNEY TO SPECIFY: Data usage, third-party services, analytics providers]
-            </p>
-
-            <h3 className="text-xl font-bold text-gray-900 mt-6">Data Protection Rights</h3>
-            <p>
-              [ATTORNEY TO SPECIFY: GDPR rights, CCPA rights, data deletion requests]
-            </p>
-          </div>
-        </section> */}
-
         {/* Section 4: Affiliate Disclosures */}
         <section id="affiliates" className="mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">
-            4. Affiliate Disclosures
-          </h2>
+        <h3 className="text-xl font-bold text-gray-900 mt-6">
+            Affiliate Disclosures
+          </h3>
           
           <div className="prose prose-lg max-w-none text-gray-700 space-y-4">
             <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-lg">
               <p className="font-semibold text-blue-900">
-                REQUIRED BY FTC: This site may contain affiliate links. We may receive 
+                This site may contain affiliate links. We may receive 
                 compensation when you click on or make purchases through these links, at 
                 no additional cost to you.
               </p>
@@ -218,46 +152,199 @@ export default function LegalPage() {
               educational content we provide. All calculations use industry-standard formulas 
               regardless of affiliate partnerships.
             </p>
-
-            {/*<p className="text-red-600 font-bold">
-              [ATTORNEY TO REVIEW: FTC 16 CFR Part 255 compliance, state-specific requirements]
-            </p>*/}
           </div>
         </section>
+        
+        <h2 className="text-3xl font-bold text-gray-900 mt-6 mb-6"> Privacy Policy</h2> 
 
-        {/* Section 5: Contact */}
-       {/*} <section id="contact" className="mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">
-            5. Contact Information
-          </h2>
-          
-          <div className="prose prose-lg max-w-none text-gray-700">
-            <p>
-              For questions about these terms, privacy practices, or affiliate relationships:
-            </p>
-            <div className="bg-gray-100 p-6 rounded-lg mt-4">
-              <p className="font-mono">
-                <strong>[YOUR LLC LEGAL NAME]</strong><br />
-                [Street Address]<br />
-                [City, State ZIP]<br />
-                Email: [legal@yourdomLin.com]<br />
-                Website: [yourwebsite.com]
+        <div className="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-r-xl mb-6">
+            
+              <p className="text-gray-800 mb-0">
+                <strong>Your Privacy Matters:</strong> Rental Scout Pro is committed to protecting your privacy. 
+                This Privacy Policy explains how we collect, use, and share information when you use our website and services.
               </p>
             </div>
-          </div>
-        </section>*/}
 
-        {/* Footer Warning */}
-        <div className="border-t-2 border-gray-200 pt-8 mt-12">
-          <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-            <h3 className="text-lg font-bold text-red-900 mb-2">
-              ⚠️ Demo Website
-            </h3>
-            <p className="text-red-800 text-sm">
-              This website has been launched for demo purposes only
+            <h2 className="text-3xl font-bold text-gray-900 mt-12 mb-6">Information We Collect</h2>
+            
+            <h3 className="text-xl font-bold text-gray-900 mt-8 mb-4"> Information You Provide</h3>
+            <p className="text-gray-700 leading-relaxed mb-6">
+              We do not require you to create an account or provide personal information to use our rental property calculator. 
+              However, you may voluntarily provide information when you:
             </p>
-          </div>
-        </div>
+            <ul className="space-y-2 text-gray-700 mb-6">
+              <li>• Contact us via email or contact forms</li>
+              <li>• Subscribe to our newsletter (if applicable)</li>
+              <li>• Participate in surveys or feedback requests</li>
+            </ul>
+
+            <h3 className="text-xl font-bold text-gray-900 mt-8 mb-4">Automatically Collected Information</h3>
+            <p className="text-gray-700 leading-relaxed mb-6">
+              When you visit our website, we automatically collect certain information through cookies and similar technologies:
+            </p>
+            <ul className="space-y-2 text-gray-700 mb-6">
+              <li>• <strong>Usage Data:</strong> Pages visited, time spent on pages, links clicked</li>
+              <li>• <strong>Device Information:</strong> Browser type, operating system, device type</li>
+              <li>• <strong>IP Address:</strong> Your approximate geographic location (city/country level)</li>
+              <li>• <strong>Referral Information:</strong> The website that referred you to us</li>
+            </ul>
+
+            <div className="bg-yellow-50 border-l-4 border-yellow-500 p-6 rounded-r-xl mb-8">
+              <p className="text-gray-800 mb-0">
+                <strong>Important:</strong> Calculator inputs (purchase price, rent, expenses, etc.) are processed locally in your browser 
+                and are NOT stored on our servers or transmitted to us. Your property analysis data remains completely private.
+              </p>
+            </div>
+
+            <h2 className="text-xl font-bold text-gray-900 mt-12 mb-6">How We Use Your Information</h2>
+            
+            <p className="text-gray-700 leading-relaxed mb-6">
+              We use the information we collect to:
+            </p>
+            <ul className="space-y-2 text-gray-700 mb-6">
+              <li>• Provide and improve our calculator and website functionality</li>
+              <li>• Analyze website usage and optimize user experience</li>
+              <li>• Respond to your inquiries and customer service requests</li>
+              <li>• Send occasional updates or newsletters (only if you opt-in)</li>
+              <li>• Comply with legal obligations</li>
+            </ul>
+
+            <h2 className="text-xl font-bold text-gray-900 mt-12 mb-6">Cookies and Tracking Technologies</h2>
+            
+            <p className="text-gray-700 leading-relaxed mb-6">
+              We use cookies and similar technologies to enhance your experience and understand how our website is used.
+            </p>
+
+            <h3 className="text-xl font-bold text-gray-900 mt-8 mb-4">Types of Cookies We Use</h3>
+            
+            <div className="bg-white border-2 border-gray-200 rounded-xl p-6 mb-6">
+              <h4 className="font-bold text-gray-900 mb-3">Essential Cookies</h4>
+              <p className="text-gray-700 text-sm">
+                Required for basic website functionality. These cannot be disabled as the site would not function properly without them.
+              </p>
+            </div>
+
+            <div className="bg-white border-2 border-gray-200 rounded-xl p-6 mb-6">
+              <h4 className="font-bold text-gray-900 mb-3">Analytics Cookies (Google Analytics)</h4>
+              <p className="text-gray-700 text-sm mb-2">
+                Help us understand how visitors interact with our website by collecting and reporting information anonymously.
+              </p>
+              <p className="text-gray-600 text-xs italic">
+                You can opt-out of Google Analytics by installing the{' '}
+                <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                  Google Analytics Opt-out Browser Add-on
+                </a>.
+              </p>
+            </div>
+
+            <div className="bg-white border-2 border-gray-200 rounded-xl p-6 mb-6">
+              <h4 className="font-bold text-gray-900 mb-3">Advertising Cookies (Google AdSense)</h4>
+              <p className="text-gray-700 text-sm mb-2">
+                Google AdSense uses cookies to serve ads based on your prior visits to our website or other websites. 
+                These cookies enable Google and its partners to serve ads based on your visit history.
+              </p>
+              <p className="text-gray-600 text-xs italic">
+                You can opt-out of personalized advertising by visiting{' '}
+                <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                  Google Ads Settings
+                </a>{' '}
+                or{' '}
+                <a href="http://www.aboutads.info/choices/" target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                  www.aboutads.info
+                </a>.
+              </p>
+            </div>
+
+            <h2 className="text-xl font-bold text-gray-900 mt-12 mb-6">Third-Party Services</h2>
+            
+            <p className="text-gray-700 leading-relaxed mb-6">
+              We use the following third-party services that may collect information:
+            </p>
+
+            <div className="space-y-4 mb-8">
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h4 className="font-bold text-gray-900 mb-2">Google Analytics</h4>
+                <p className="text-gray-700 text-sm mb-2">
+                  Analytics and website usage tracking.
+                </p>
+                <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-blue-600 text-sm underline">
+                  Google Privacy Policy →
+                </a>
+              </div>
+
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h4 className="font-bold text-gray-900 mb-2">Google AdSense</h4>
+                <p className="text-gray-700 text-sm mb-2">
+                  Display advertising on our website.
+                </p>
+                <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" className="text-blue-600 text-sm underline">
+                  How Google Uses Data →
+                </a>
+              </div>
+
+              <div className="bg-gray-50 rounded-lg p-4">
+                <h4 className="font-bold text-gray-900 mb-2">Affiliate Partners</h4>
+                <p className="text-gray-700 text-sm mb-2">
+                  When you click on affiliate links, you may be redirected to third-party websites that have their own privacy policies. 
+                  We are not responsible for the privacy practices of these external sites.
+                </p>
+              </div>
+            </div>
+
+            <h2 className="text-xl font-bold text-gray-900 mt-12 mb-6">Data Sharing and Disclosure</h2>
+            
+            <p className="text-gray-700 leading-relaxed mb-6">
+              We do not sell, trade, or rent your personal information to third parties. We may share information in the following circumstances:
+            </p>
+            <ul className="space-y-2 text-gray-700 mb-6">
+              <li>• <strong>Service Providers:</strong> With trusted third-party services (Google Analytics, AdSense) that help us operate our website</li>
+              <li>• <strong>Legal Requirements:</strong> When required by law, court order, or to protect our rights</li>
+              <li>• <strong>Business Transfers:</strong> In connection with a merger, sale, or acquisition of our business</li>
+            </ul>
+
+            <h2 className="text-xl font-bold text-gray-900 mt-12 mb-6">Your Rights (GDPR & CCPA)</h2>
+            
+            <p className="text-gray-700 leading-relaxed mb-6">
+              Depending on your location, you may have the following rights:
+            </p>
+
+            <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-6 mb-6">
+              <h4 className="font-bold text-blue-900 mb-3">EU/EEA Users (GDPR Rights):</h4>
+              <ul className="space-y-2 text-gray-700">
+                <li>• <strong>Access:</strong> Request a copy of data we hold about you</li>
+                <li>• <strong>Rectification:</strong> Request correction of inaccurate data</li>
+                <li>• <strong>Erasure:</strong> Request deletion of your data ("right to be forgotten")</li>
+                <li>• <strong>Restriction:</strong> Request limitation of data processing</li>
+                <li>• <strong>Portability:</strong> Request transfer of your data to another service</li>
+                <li>• <strong>Objection:</strong> Object to processing of your data</li>
+                <li>• <strong>Withdraw Consent:</strong> Withdraw consent at any time (for consent-based processing)</li>
+              </ul>
+            </div>
+
+            <div className="bg-purple-50 border-2 border-purple-200 rounded-xl p-6 mb-6">
+              <h4 className="font-bold text-purple-900 mb-3">California Users (CCPA Rights):</h4>
+              <ul className="space-y-2 text-gray-700">
+                <li>• Request disclosure of personal information collected</li>
+                <li>• Request deletion of personal information</li>
+                <li>• Opt-out of sale of personal information (we do not sell personal data)</li>
+                <li>• Non-discrimination for exercising privacy rights</li>
+              </ul>
+            </div>
+
+            <p className="text-gray-700 leading-relaxed mb-6">
+              To exercise any of these rights, please contact us at the email address provided below.
+            </p>
+
+            <h2 className="text-xl font-bold text-gray-900 mt-12 mb-6">Data Retention</h2>
+            
+            <p className="text-gray-700 leading-relaxed mb-6">
+              We retain information only as long as necessary to provide our services and comply with legal obligations:
+            </p>
+            <ul className="space-y-2 text-gray-700 mb-6">
+              <li>• <strong>Analytics Data:</strong> Retained according to Google Analytics retention settings (typically 26 months)</li>
+              <li>• <strong>Contact Form Data:</strong> Deleted within 2 years unless required for legal purposes</li>
+              <li>• <strong>Calculator Inputs:</strong> Never stored - processed locally in your browser only</li>
+            </ul>
       </div>
     </div>
   );

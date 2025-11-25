@@ -2,6 +2,7 @@
 
 import React, { useState, useCallback } from 'react';
 import { Calculator, DollarSign, TrendingUp, AlertTriangle, Info, CheckCircle, XCircle, BarChart3, Target, Play } from 'lucide-react';
+import Image from 'next/image';
 
 interface CalculatorResults {
   purchasePrice: number;
@@ -28,12 +29,12 @@ interface CalculatorResults {
 export default function RentalPropertyCalculator() {
   // Input states - using object to prevent re-render issues
   const [inputs, setInputs] = useState({
-    purchasePrice: '400000',
+    purchasePrice: '200000',
     monthlyRent: '2200',
-    downPayment: '80000',
-    interestRate: '6.5',
-    propertyTax: '300',
-    insurance: '150',
+    downPayment: '20000',
+    interestRate: '5.99',
+    propertyTax: '100',
+    insurance: '100',
     maintenance: '200',
     vacancy: '5'
   });
@@ -121,7 +122,7 @@ export default function RentalPropertyCalculator() {
       <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-green-600 text-white p-8">
         <div className="flex items-center space-x-4">
           <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center">
-            <Calculator className="w-7 h-7 text-white" />
+            <Image src="/images/logo-white.png" alt="Rental Scout Pro" width={100} height={100} />
           </div>
           <div>
             <h2 className="text-3xl font-bold">Rental Scout Analysis</h2>
@@ -382,7 +383,9 @@ export default function RentalPropertyCalculator() {
           {!hasCalculated && !isCalculating && (
             <div className="text-center py-12">
               <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Calculator className="w-10 h-10 text-gray-400" />
+               {/*} <Calculator className="w-10 h-10 text-gray-400" /> */}
+               <Image src="/images/logo-gradient.png" alt="calculator" width={100} height={100} />
+               
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
                 Ready to Analyze Your Property

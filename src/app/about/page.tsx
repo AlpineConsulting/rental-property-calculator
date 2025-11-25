@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import Header from '@/components/Header';
 import { Calculator, Target, TrendingUp, Shield, Users, Award, CheckCircle, BarChart3, Clock, Zap, Globe, Heart } from 'lucide-react';
 import Link from 'next/link';
+import { affiliateConfig } from '@/utils/affiliateConfig';
+import ResourcesPage from '../guide/resources/page';
 
 export const metadata: Metadata = {
   title: 'About Us | Rental Property Calculator - Free Real Estate Analysis Tool',
@@ -44,7 +46,7 @@ export default function AboutPage() {
     {
       icon: Globe,
       title: 'Used Worldwide',
-      description: 'Trusted by investors in over 50 countries for property analysis.',
+      description: 'Trusted by investors Worldwide.',
       color: 'orange'
     }
   ];
@@ -73,7 +75,7 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center px-4 py-2 bg-blue-100 rounded-full text-blue-800 text-sm font-medium mb-6">
             <Users className="w-4 h-4 mr-2" />
-            Trusted by 10,000+ Investors
+            Trusted by Professional Investors
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
@@ -163,12 +165,6 @@ export default function AboutPage() {
                   professional-quality analysis tools to make informed decisions."
                 </p>
               </div>
-
-              <p className="text-gray-600 leading-relaxed">
-                Today, our calculator has been used to analyze over 10,000 properties worldwide, 
-                helping investors avoid bad deals and identify profitable opportunities. 
-                And it will always remain free.
-              </p>
             </div>
           </div>
         </div>
@@ -300,13 +296,15 @@ export default function AboutPage() {
               <Calculator className="mr-3 w-6 h-6" />
               Try Calculator Now
             </Link>
+
+            {affiliateConfig.showResourcesPage && (
             <Link 
-              href="/guide"
+              href="/guide/resources"
               className="inline-flex items-center px-8 py-4 border-2 border-white text-white font-bold text-lg rounded-xl hover:bg-white hover:text-blue-600 transition-colors"
             >
               <TrendingUp className="mr-3 w-6 h-6" />
-              Learn Real Estate Investing
-            </Link>
+              Resources
+            </Link> )}
           </div>
         </div>
       </section>

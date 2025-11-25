@@ -31,7 +31,7 @@ export default function OnePercentExpensiveBlogPost() {
           <div className="flex items-center gap-6 text-purple-100">
             <div className="flex items-center">
               <Calendar className="w-4 h-4 mr-2" />
-              September 5, 2024
+              September 4
             </div>
             <div className="flex items-center">
               <Clock className="w-4 h-4 mr-2" />

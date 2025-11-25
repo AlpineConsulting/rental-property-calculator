@@ -1,8 +1,10 @@
 import RentalPropertyCalculator from '@/components/RentalPropertyCalculator';
 import Header from '@/components/Header';
 import AffiliateCallToAction from '@/components/AffiliateCallToAction';
-import { Calculator, TrendingUp, DollarSign, Target, BarChart3, Shield, BookOpen, ArrowRight, Star, Users, Award, CheckCircle, Zap, Clock, Globe, Info} from 'lucide-react';
+import { Calculator, TrendingUp, DollarSign, Target, BarChart3, Shield, BookOpen, ArrowRight, Star, Users, Award, CheckCircle, Zap, Clock, Globe, Info, Coffee, Heart, Briefcase} from 'lucide-react';
+import { affiliateConfig } from '@/utils/affiliateConfig';
 import Link from 'next/link';
+
 
 export default function HomePage() {
   return (
@@ -183,10 +185,36 @@ export default function HomePage() {
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-green-600/20 rounded-3xl blur-3xl transform scale-105"></div>
             <div className="relative">
               <RentalPropertyCalculator />
-              <AffiliateCallToAction />
+              
             </div>
           </div>
 
+          {/*Support Our Work*/}
+          <div className="mt-12 p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-2xl border border-purple-200">
+            <div className="flex items-center justify-between flex-wrap gap-4">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <Heart className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-900">Find this tool helpful?</h3>
+                  <p className="text-sm text-gray-600">Support us to keep it free forever</p>
+                </div>
+              </div>
+              
+              <a
+                href="https://ko-fi.com/rentalscoutpro"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold transition-all transform hover:scale-105 shadow-lg"
+              >
+                <Coffee className="w-5 h-5" />
+                <span>Buy Us a Coffee</span>
+              </a>
+            </div>
+          </div>
+          
+          {affiliateConfig.showAffiliateCTA && <AffiliateCallToAction />}
           {/* Call to Action Below Calculator */}
           <div className="text-center mt-12">
             <p className="text-lg text-gray-600 mb-6">
@@ -200,13 +228,14 @@ export default function HomePage() {
                 <Info className="mr-2 w-5 h-5" />
                 Learn More About Our Tool
               </Link>
+              {affiliateConfig.showResourcesPage && (
               <Link 
-                href="/guide"
+                href="/guide/resources"
                 className="inline-flex items-center px-6 py-3 bg-gray-900 hover:bg-gray-800 text-white font-semibold rounded-xl transition-colors duration-300"
               >
-                <BookOpen className="mr-2 w-5 h-5" />
-                Real Estate Investment Guide
-              </Link>
+                <Briefcase className="mr-2 w-5 h-5" />
+                Resource Guide
+              </Link>)}
             </div>
           </div>
         </div>

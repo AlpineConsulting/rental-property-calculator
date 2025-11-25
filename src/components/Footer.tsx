@@ -1,5 +1,7 @@
 import Link from 'next/link';
 import { Calculator, Twitter, Linkedin, Mail, ExternalLink, AlertTriangle, Heart, Code, Star } from 'lucide-react';
+import Image from 'next/image';
+import { affiliateConfig } from '@/utils/affiliateConfig';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -12,10 +14,9 @@ export default function Footer() {
       { name: 'Cash Flow Analysis', href: '/guide/cash-flow' },
     ],
     resources: [
-      { name: '1% Rule Guide', href: '/guide/1-percent-rule' },
-      { name: 'Resources', href: '/guide/resources' },
+      { name: '1% Rule Guide', href: '/guide/1-percent-rule' },      //{ name: 'FAQ', href: '/faq' }
+      ...(affiliateConfig.showResourcesPage ? [{ name: 'Resources', href: '/guide/resources' }] : []),
       { name: 'Blog', href: '/guide/blog' },
-      //{ name: 'FAQ', href: '/faq' }
     ],
     company: [
       { name: 'About Us', href: '/about' },
@@ -39,7 +40,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center space-x-3 mb-6">
               <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-green-500 rounded-2xl flex items-center justify-center shadow-lg">
-                <Calculator className="w-7 h-7 text-white" />
+                <Image src="/images/logo-white.png" alt="Rental Scout Pro" width={100} height={100} />
               </div>
               <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent">
                 Rental Scout Pro
@@ -149,6 +150,17 @@ export default function Footer() {
               ))}
             </ul>
           </div>
+          <div className="flex items-center gap-2">
+            <Heart className="w-4 h-4 text-red-500" />
+            <a 
+              href="https://ko-fi.com/rentalscoutpro" 
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 hover:text-purple-600 transition-colors"
+            >
+              Support Our Work
+            </a>
+          </div>
         </div>
 
         {/* Legal Disclaimer */}
@@ -182,16 +194,24 @@ export default function Footer() {
               <span className="flex items-center">
                 Made for real estate investors
               </span>
-              <div className="flex items-center space-x-2">
-                <span>Built with</span>
-                <Heart className="w-4 h-4 text-red-400" />
-                <span>and</span>
-                <Code className="w-4 h-4 text-blue-400" />
-                <span>Next.js</span>
-              </div>
             </div>
           </div>
         </div>
+      </div>
+
+          {/* Right - Legal Links (ADD THIS) */}
+      <div className="flex flex-wrap justify-center gap-4 text-sm">
+        <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">
+          Privacy Policy
+        </Link>
+        <span className="text-gray-600">•</span>
+        <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">
+          Terms of Service
+        </Link>
+        <span className="text-gray-600">•</span>
+        <Link href="/cookie-settings" className="text-gray-400 hover:text-white transition-colors">
+          Cookie Settings
+        </Link>
       </div>
     </footer>
   );

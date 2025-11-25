@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { BookOpen, Calendar, Clock, ArrowRight, TrendingUp } from 'lucide-react';
+import { BookOpen, Calendar, Clock, ArrowRight, TrendingUp, ExternalLink, Briefcase } from 'lucide-react';
+import { affiliateConfig } from '@/utils/affiliateConfig';
 
 export const metadata = {
   title: 'Real Estate Investment Blog | Rental Scout Pro',
@@ -10,49 +11,47 @@ export const metadata = {
 export default function BlogPage() {
   const posts = [
     {
-      title: 'Fed Rate Cut: What It Means for Real Estate Investors',
-      slug: 'fed-rate-cut-9-2025',
-      excerpt: 'The Federal Reserve just cut interest rates. Here\'s how this impacts your rental property investment strategy and what you should do now.',
-      date: '2024-09-18',
-      readTime: '5 min read',
-      category: 'Market News',
+      title: '5 Hidden Costs First-Time Landlords Always Forget',
+      slug: 'hidden-costs-9-2025',
+      excerpt: 'Don\'t let these overlooked expenses derail your first rental property investment. Learn what experienced landlords budget for that beginners miss.',
+      date: '2025-09-15',
+      readTime: '6 min read',
+      category: 'Beginner Tips',
       featured: true
     },
     {
-      title: '5 Hidden Costs First-Time Landlords Always Forget',
-      slug: 'hidden-costs-9-2024',
-      excerpt: 'Don\'t let these overlooked expenses derail your first rental property investment. Learn what experienced landlords budget for that beginners miss.',
-      date: '2024-09-15',
-      readTime: '6 min read',
-      category: 'Beginner Tips'
-    },
-    {
-      title: 'Should You Buy a Rental Property in 2024?',
-      slug: 'should-you-buy-9-2024',
-      excerpt: 'Market conditions are shifting. We analyze current trends, cap rates by region, and whether now is the right time to invest in rental real estate.',
-      date: '2024-09-10',
-      readTime: '7 min read',
-      category: 'Market Analysis'
+      title: 'Should You Buy a Rental Property During High Interest Rates?',
+      slug: 'buying-during-high-rates',
+      date: '2025-10-15',
+      excerpt: 'Strategic advice for navigating rental property investments when mortgage rates are elevated. Learn when high rates create opportunities.',
+      category: 'Investment Strategy',
+      readTime: '8 min read'
     },
     {
       title: 'The Truth About the 1% Rule in Expensive Markets',
-      slug: 'one-percent-rule-expensive-markets-9-2024',
+      slug: 'one-percent-rule-expensive-markets-9-2025',
       excerpt: 'The 1% rule doesn\'t work in San Francisco or New York. Here\'s how to adapt your screening process for high-cost coastal markets.',
-      date: '2024-09-05',
+      date: '2025-09-05',
       readTime: '5 min read',
       category: 'Investment Strategy'
     },
     {
       title: 'How to Negotiate 10% Off Any Rental Property',
-      slug: 'negotiate-rental-property-9-2024',
+      slug: 'negotiate-rental-property-9-2025',
       excerpt: 'Real negotiation tactics that work in today\'s market. Learn what motivates sellers and how to structure offers that get accepted below asking price.',
-      date: '2024-09-01',
+      date: '2025-09-01',
       readTime: '8 min read',
       category: 'Deal Making'
+    },
+    {
+      title: 'How to Screen Tenants: A Complete Landlord\'s Guide',
+      slug: 'tenant-screening-guide',
+      date: '2025-11-01',
+      excerpt: 'Complete guide to tenant screening for landlords. Learn how to evaluate rental applications, check credit, verify income, and avoid problem tenants legally.',
+      category: 'Beginner Tips',
+      readTime: '12 min read'
     }
   ];
-
-  const categories = ['All Posts', 'Market News', 'Beginner Tips', 'Investment Strategy', 'Market Analysis', 'Deal Making'];
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -74,25 +73,32 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* Category Filter */}
-      <section className="py-8 px-4 bg-white border-b border-gray-200 sticky top-16 z-40">
+      {/* Resource Banner - replaces categories */}
+      {affiliateConfig.showResourcesPage && (
+      <section className="py-12 px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-wrap gap-3 justify-center">
-            {categories.map((category, index) => (
-              <button
-                key={index}
-                className={`px-4 py-2 rounded-full text-sm font-semibold transition-colors ${
-                  index === 0
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+          <div className="bg-gradient-to-r from-blue-600 to-green-600 rounded-2xl p-8 text-white shadow-xl">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex-1 text-center md:text-left">
+                <div className="flex items-center justify-center md:justify-start mb-3">
+                  <Briefcase className="w-6 h-6 mr-2" />
+                  <h3 className="text-2xl font-bold">Need Tools & Resources?</h3>
+                </div>
+                <p className="text-blue-100 text-lg">
+                  Explore our curated list of lenders, market data tools, insurance providers, and property management software.
+                </p>
+              </div>
+              <Link 
+                href="/guide/resources"
+                className="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-colors shadow-lg whitespace-nowrap"
               >
-                {category}
-              </button>
-            ))}
+                View All Resources
+                <ExternalLink className="w-5 h-5 ml-2" />
+              </Link>
+            </div>
           </div>
         </div>
-      </section>
+      </section>)}
 
       {/* Featured Post */}
       <section className="py-12 px-4">
@@ -117,7 +123,7 @@ export default function BlogPage() {
                         {post.category}
                       </span>
                       <span className="px-3 py-1 bg-red-100 text-red-700 text-xs font-semibold rounded-full">
-                        NEW
+                        FEATURED
                       </span>
                     </div>
                     
@@ -188,7 +194,8 @@ export default function BlogPage() {
                           <Calendar className="w-3 h-3 mr-1" />
                           {new Date(post.date).toLocaleDateString('en-US', { 
                             month: 'short', 
-                            day: 'numeric' 
+                            day: 'numeric',
+                            year: 'numeric'
                           })}
                         </div>
                         <div className="flex items-center">
@@ -209,30 +216,24 @@ export default function BlogPage() {
         </div>
       </section>
 
-      {/* Newsletter CTA */}
+      {/* CTA Section */}
       <section className="py-16 px-4 bg-gradient-to-r from-blue-600 to-green-600">
-        <div className="max-w-3xl mx-auto text-center text-white">
-          <h2 className="text-3xl font-bold mb-4">
-            Stay Updated on Market Trends
+        <div className="max-w-4xl mx-auto text-center text-white">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            Ready to Analyze Your Next Property?
           </h2>
           <p className="text-xl text-blue-100 mb-8">
-            Get notified when we publish new articles on rental property investing.
+            Use our free calculator to evaluate rental property investments with professional-grade metrics.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-white"
-            />
-            <button className="px-6 py-3 bg-white text-blue-600 font-bold rounded-lg hover:bg-blue-50 transition-colors">
-              Subscribe
-            </button>
-          </div>
-          <p className="text-sm text-blue-200 mt-4">
-            No spam. Unsubscribe anytime. We respect your privacy.
-          </p>
+          <Link 
+            href="/#calculator"
+            className="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-bold text-lg rounded-xl hover:bg-blue-50 transition-colors shadow-lg"
+          >
+            Try Calculator Free
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Link>
         </div>
       </section>
     </div>
   );
-} 
+}

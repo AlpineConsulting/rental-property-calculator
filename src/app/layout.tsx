@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
-import DemoModal from '@/components/DemoModal'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import CookieConsent from '@/components/CookieConsent';
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://rentalscoutpro.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://unclepoochercom'),
   alternates: {
     canonical: '/',
   },
@@ -131,8 +131,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "Rental Property Calculator",
-              "url": process.env.NEXT_PUBLIC_SITE_URL || "https://rentalscoutpro.com",
-              "logo": `${process.env.NEXT_PUBLIC_SITE_URL || "https://rentalscoutpro.com"}/logo.png`,
+              "url": process.env.NEXT_PUBLIC_SITE_URL || "https://unclepoocher.com",
+              "logo": `${process.env.NEXT_PUBLIC_SITE_URL || "https://unclepoocher.com"}/logo.png`,
               "description": "Free rental property calculator and real estate investment analysis tools for investors, landlords, and real estate professionals",
               "foundingDate": "2025",
               "sameAs": [
@@ -157,7 +157,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "WebApplication",
               "name": "Rental Property Calculator",
-              "url": `${process.env.NEXT_PUBLIC_SITE_URL || "https://rentalscoutpro.com"}/calculator`,
+              "url": `${process.env.NEXT_PUBLIC_SITE_URL || "https://unclepoocher.com"}/calculator`,
               "description": "Free online calculator for analyzing rental property investments, cash flow, ROI, and cap rates",
               "applicationCategory": "FinanceApplication",
               "operatingSystem": "Any",
@@ -225,7 +225,6 @@ export default function RootLayout({
         )}
       </head>
       <body className={`${inter.className} bg-gray-50 text-gray-900 antialiased`}>
-        <DemoModal />
         <div className="flex min-h-screen flex-col">
           <Header />
           <main className="flex-grow">
@@ -234,10 +233,8 @@ export default function RootLayout({
           <Footer />
         </div>
         
-        {/* Cookie Consent Banner - To be implemented */}
-        <div id="cookie-consent-banner" className="hidden">
-          {/* Cookie consent implementation will go here */}
-        </div>
+        {/* Cookie Consent Banner */}
+        <CookieConsent />
       </body>
     </html>
   )

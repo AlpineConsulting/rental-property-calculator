@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Calendar, Clock, ArrowLeft, AlertTriangle, DollarSign } from 'lucide-react';
+import { Calendar, Clock, ArrowLeft, AlertTriangle, DollarSign, ExternalLink} from 'lucide-react';
+import { affiliateConfig } from '@/utils/affiliateConfig';
 
 export const metadata = {
   title: '5 Hidden Costs First-Time Landlords Always Forget | Rental Scout Pro',
@@ -33,7 +34,7 @@ export default function HiddenCostsBlogPost() {
           <div className="flex items-center gap-6 text-blue-100">
             <div className="flex items-center">
               <Calendar className="w-4 h-4 mr-2" />
-              September 15, 2024
+              September 14
             </div>
             <div className="flex items-center">
               <Clock className="w-4 h-4 mr-2" />
@@ -296,19 +297,26 @@ export default function HiddenCostsBlogPost() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-blue-600 to-green-600 rounded-2xl p-8 text-center text-white mt-12">
-              <DollarSign className="w-16 h-16 mx-auto mb-4" />
-              <h3 className="text-2xl font-bold mb-4">Calculate Your True Expenses</h3>
-              <p className="text-blue-100 mb-6">
-                Use our calculator with all the hidden costs included to see your real cash flow.
-              </p>
+            {/* Resource Banner */}
+          {affiliateConfig.showResourcesPage && (
+            <div className="mt-12 bg-gradient-to-r from-blue-600 to-green-600 rounded-2xl p-8 text-white shadow-xl">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-2">
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-2xl font-bold mb-2">Need Tools for Your Analysis?</h3>
+                <p className="text-blue-100 text-lg">
+                  Explore lenders, market data tools, and insurance options to support your investment.
+                </p>
+              </div>
               <Link 
-                href="/#calculator"
-                className="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-colors shadow-lg"
+                href="/guide/resources"
+                className="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-colors shadow-lg whitespace-nowrap"
               >
-                Try Calculator Now
+                View Resources
+                <ExternalLink className="w-5 h-5 ml-2" />
               </Link>
             </div>
+            </div>
+          )}
 
           </div>
         </div>
@@ -324,14 +332,27 @@ export default function HiddenCostsBlogPost() {
               <p className="text-gray-600 text-sm">Complete breakdown of rental property expenses</p>
             </Link>
             <Link 
-              href="/guide/blog/should-you-buy-rental-property-2024"
+              href="/guide/blog/buying-during-high-rates"
               className="p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all"
             >
-              <h4 className="font-bold text-gray-900 mb-2">Should You Buy in 2024?</h4>
-              <p className="text-gray-600 text-sm">Current market analysis for investors</p>
+              <h4 className="font-bold text-gray-900 mb-2">Should You Buy a Rental Property During High Interest Rates?</h4>
+              <p className="text-gray-600 text-sm">Strategic advice for navigating rental property investments when mortgage rates are elevated. Learn when high rates create opportunities.</p>
             </Link>
           </div>
         </div>
+        <div className="bg-gradient-to-r from-blue-600 to-green-600 rounded-2xl p-8 text-center text-white mt-12">
+              <DollarSign className="w-16 h-16 mx-auto mb-4" />
+              <h3 className="text-2xl font-bold mb-4">Calculate Your True Expenses</h3>
+              <p className="text-blue-100 mb-6">
+                Use our calculator with all the hidden costs included to see your real cash flow.
+              </p>
+              <Link 
+                href="/#calculator"
+                className="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-colors shadow-lg"
+              >
+                Try Calculator Now
+              </Link>
+            </div>
       </article>
     </div>
   );

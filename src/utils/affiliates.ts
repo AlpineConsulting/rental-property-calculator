@@ -1,4 +1,6 @@
 // Affiliate link configuration and management
+import { affiliateConfig, getSafeAffiliateUrl } from './affiliateConfig';
+
 export interface AffiliateLink {
   id: string;
   name: string;
@@ -212,6 +214,11 @@ export const generateAffiliateUrl = (
   context?: string,
   customParams?: Record<string, string>
 ): string => {
+  // ADD THESE 3 LINES AT THE START OF THE FUNCTION
+  if (!affiliateConfig.enabled) {
+    return '#';
+  }
+
   const affiliate = getAffiliateLink(affiliateId);
   if (!affiliate) {
     console.warn(`Affiliate link not found: ${affiliateId}`);

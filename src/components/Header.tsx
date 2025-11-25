@@ -3,36 +3,37 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Calculator, Menu, X, Home, BookOpen, Info, Mail, ArrowRight, Zap } from 'lucide-react';
-import { useSafeNavigation } from '@/utils/client-server';
-
-const navigation = [
-  { name: 'Home', href: '/', icon: Home },
-  { name: 'Calculator', href: '/#calculator', icon: Calculator },
-  { name: 'Guide', href: '/guide', icon: BookOpen },
-  { name: 'About', href: '/about', icon: Info },
-  { name: 'Contact', href: '/contact', icon: Mail },
-];
+import { Calculator, Menu, X, Home, BookOpen, Info, Mail, ArrowRight, Zap, Briefcase } from 'lucide-react';
+import { affiliateConfig } from '@/utils/affiliateConfig';
+import Image from 'next/image';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
-  
-  // Move the hook call to the component level
-  const { isClient, hash } = useSafeNavigation();
 
   const isActive = (href: string): boolean => {
-    // Now use the hook values directly
-    if (!isClient) return false;
-    
     if (href === '/') {
-      return pathname === '/' && (!hash || hash === '');
+      return pathname === '/';
     }
     if (href === '/#calculator') {
-      return pathname === '/' && hash === '#calculator';
+      return pathname === '/' && typeof window !== 'undefined' && window.location.hash === '#calculator';
     }
     return pathname.startsWith(href.replace('/#', '/'));
   };
+
+  // Base navigation items (always shown)
+  const baseNavigation = [
+    { name: 'Home', href: '/', icon: Home },
+    { name: 'Calculator', href: '/#calculator', icon: Calculator },
+    { name: 'Blog', href: '/guide/blog', icon: BookOpen },
+    { name: 'About', href: '/about', icon: Info },
+    { name: 'Contact', href: '/contact', icon: Mail },
+  ];
+
+  // Add Resources link only if affiliates are enabled
+  const navigation = affiliateConfig.showResourcesPage
+    ? [...baseNavigation.slice(0, 2), { name: 'Resources', href: '/guide/resources', icon: Briefcase }, ...baseNavigation.slice(2)]
+    : baseNavigation;
 
   return (
     <header className="bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100 fixed top-0 left-0 right-0 z-50">
@@ -41,7 +42,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-green-500 rounded-xl flex items-center justify-center group-hover:from-blue-600 group-hover:to-green-600 transition-all duration-300 shadow-lg group-hover:shadow-xl">
-              <Calculator className="w-6 h-6 text-white" />
+              <Image src="/images/logo-white.png" alt="Rental Scout Pro" width={100} height={100} />
             </div>
             <div className="hidden sm:block">
               <span className="text-xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent group-hover:from-blue-600 group-hover:to-green-600 transition-all duration-300">
@@ -152,8 +153,8 @@ export default function Header() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="py-2 text-center">
             <p className="text-sm text-gray-600">
-              ⭐ <span className="font-semibold">Trusted by Real Estate Pros</span> 
-              <span className="hidden sm:inline"> | Free Analysis Tool</span>
+              ⭐ <span className="font-semibold">Trusted by Real Estate Investors</span> 
+              <span className="hidden sm:inline"> | Free Professional Analysis</span>
             </p>
           </div>
         </div>

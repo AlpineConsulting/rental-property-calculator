@@ -41,13 +41,13 @@ export default function AffiliateCallToAction() {
   ];
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-blue-50">
+    <section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-blue-50 rounded-3xl">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold mb-4">
             <Sparkles className="w-4 h-4 mr-2" />
-            Take Action on Your Numbers
+            What will grow your business most right now?
           </div>
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
           </h2>
@@ -107,7 +107,7 @@ export default function AffiliateCallToAction() {
         {/* Bottom Trust Signal */}
         <div className="mt-12 text-center">
           <p className="text-sm text-gray-500">
-            <strong>Sponsored Links:</strong> WWe may earn commissions from some of these partners.{' '}
+            <strong>Sponsored Links:</strong> We may earn commissions from some of these partners.{' '}
             <Link href="/guide/resources" className="text-blue-600 hover:text-blue-700 underline">
               See all resources →
             </Link>
