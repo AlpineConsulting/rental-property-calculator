@@ -45,7 +45,7 @@ export default function CookieConsent() {
 
         // Initialize GA4
         window.dataLayer = window.dataLayer || [];
-        function gtag(...args: any[]) {
+        const gtag = (...args: any[]) => {
           window.dataLayer.push(args);
         }
         gtag('js', new Date());
