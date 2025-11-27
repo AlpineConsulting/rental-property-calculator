@@ -50,8 +50,7 @@ const nextConfig = {
 
   // Image optimization
   images: {
-    unoptimized: true,
-    //formats: ['image/webp', 'image/avif'], - DISABLED for Netlify
+      formats: ['image/webp', 'image/avif'],
   },
 
   // Don't fail build on errors in development
