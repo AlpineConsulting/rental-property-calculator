@@ -275,7 +275,7 @@ export default function ContactPage() {
                   About This Tool
                 </h3>
                 <p className="text-sm text-gray-600 leading-relaxed mb-4">
-                  Rental Scout Pro is a free, ad-supported tool built by real estate investors for investors. We're committed to keeping it free and accessible to everyone.
+                  Rental Scout Pro is a free tool built by real estate investors for everyone. We're committed to keeping it free and accessible.
                 </p>
                 <div className="pt-4 border-t border-blue-200">
                   <p className="text-xs text-gray-500">

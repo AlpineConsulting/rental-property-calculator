@@ -161,7 +161,7 @@ export default function Header() {
           <div className="py-2 text-center">
             <p className="text-sm text-gray-600">
               ⭐ <span className="font-semibold">Trusted by Real Estate Professionals</span> 
-              <span className="hidden sm:inline"> | Free Professional Analysis</span>
+              <span className="hidden sm:inline"> | Free Analysis</span>
             </p>
           </div>
         </div>

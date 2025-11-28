@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   const stats = [
-    { number: '10,000+', label: 'Properties Analyzed', icon: BarChart3 },
+    { number: '1,000+', label: 'Properties Analyzed', icon: BarChart3 },
     { number: '100%', label: 'Fast', icon: Target },
     { number: '5★', label: 'User Rating', icon: Award },
     { number: '24/7', label: 'Always Available', icon: Clock },
@@ -53,8 +53,8 @@ export default function AboutPage() {
 
   const team = [
     {
-      role: 'Real Estate Investment Analyst',
-      description: 'Former commercial real estate analyst with 10+ years experience in property valuation and investment analysis.'
+      role: 'Passionate Real Estate Investors',
+      description: 'Experiences hustlers with a passion for real estate investment and analysis.'
     },
     {
       role: 'Software Developer',
@@ -62,7 +62,7 @@ export default function AboutPage() {
     },
     {
       role: 'UX Designer',
-      description: 'User experience expert focused on making complex financial calculations simple and intuitive.'
+      description: 'User experience expert focused on making simple and intuitive platforms.'
     }
   ];
 

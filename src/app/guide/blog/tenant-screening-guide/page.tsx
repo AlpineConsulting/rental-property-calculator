@@ -761,12 +761,12 @@ export default function TenantScreeningGuide() {
               >
                 <h4 className="font-bold text-gray-900 mb-2 flex items-center">
                   <Shield className="w-5 h-5 text-blue-600 mr-2" />
-                  Property Management Tools
+                  How to Negotiate
                 </h4>
-                <p className="text-gray-600 text-sm">Software to help manage tenant screening, rent collection, and maintenance</p>
+                <p className="text-gray-600 text-sm">Learn what motivates sellars and how to structure offers that get accepted below asking price.</p>
               </Link>
               <Link 
-                href="/guide/blog/hidden-costs-9-2025"
+                href="/guide/blog/negotiate-rental-property-9-2025"
                 className="p-6 bg-white border-2 border-gray-200 rounded-xl hover:border-green-400 hover:shadow-lg transition-all"
               >
                 <h4 className="font-bold text-gray-900 mb-2">5 Hidden Landlord Costs</h4>
