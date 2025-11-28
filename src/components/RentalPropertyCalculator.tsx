@@ -108,6 +108,15 @@ export default function RentalPropertyCalculator() {
       setResults(calculatedResults);
       setIsCalculating(false);
       setHasCalculated(true);
+
+     // Track calculator usage in Google Analytics
+     if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'calculator_used', {
+        event_category: 'engagement',
+        event_label: 'property_analysis',
+        value: 1
+      });
+    } 
     }, 800);
   }, [inputs]);
 

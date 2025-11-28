@@ -45,7 +45,7 @@ export default function AboutPage() {
     },
     {
       icon: Globe,
-      title: 'Used Worldwide',
+      title: 'Available Worldwide',
       description: 'Trusted by investors Worldwide.',
       color: 'orange'
     }
@@ -75,7 +75,7 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center px-4 py-2 bg-blue-100 rounded-full text-blue-800 text-sm font-medium mb-6">
             <Users className="w-4 h-4 mr-2" />
-            Trusted by Professional Investors
+            Trusted by Professional
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
@@ -134,7 +134,7 @@ export default function AboutPage() {
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Our Story</h2>
             <p className="text-lg text-gray-600">
-              Built by real estate investors, for real estate investors
+              Built by real estate investors, for everyone
             </p>
           </div>
 
@@ -175,7 +175,7 @@ export default function AboutPage() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Why Investors Trust Our Calculator
+              Why Trust Our Calculator
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               We've designed every aspect of our tool with the real estate investor in mind
@@ -285,7 +285,6 @@ export default function AboutPage() {
             Ready to Analyze Your Next Property?
           </h2>
           <p className="text-xl text-blue-100 mb-8">
-            Join thousands of investors who trust our calculator for their property analysis
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -56,11 +56,11 @@ export default function Footer() {
             <div className="flex flex-wrap gap-3 mb-8">
               <div className="flex items-center px-3 py-1 bg-blue-900/30 rounded-full text-sm">
                 <Star className="w-4 h-4 mr-2 text-yellow-400" />
-                <span className="text-blue-200">10,000+ Users</span>
+                <span className="text-blue-200">100% Free</span>
               </div>
               <div className="flex items-center px-3 py-1 bg-green-900/30 rounded-full text-sm">
                 <Calculator className="w-4 h-4 mr-2 text-green-400" />
-                <span className="text-green-200">100% Free</span>
+                <span className="text-green-200">Instant Results</span>
               </div>
             </div>
 

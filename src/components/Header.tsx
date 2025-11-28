@@ -58,7 +58,7 @@ export default function Header() {
             </div>
             <div className="block sm:hidden">
               <span className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
-                RC
+                RSP
               </span>
             </div>
           </Link>
@@ -160,7 +160,7 @@ export default function Header() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="py-2 text-center">
             <p className="text-sm text-gray-600">
-              ⭐ <span className="font-semibold">Trusted by Real Estate Investors</span> 
+              ⭐ <span className="font-semibold">Trusted by Real Estate Professionals</span> 
               <span className="hidden sm:inline"> | Free Professional Analysis</span>
             </p>
           </div>
