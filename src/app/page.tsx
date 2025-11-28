@@ -257,13 +257,13 @@ export default function HomePage() {
             <div className="text-center p-8 bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl transform hover:scale-105 transition-transform duration-300">
               <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-2">10K+</div>
               <div className="text-gray-700 font-semibold mb-1">Properties Analyzed</div>
-              <div className="text-sm text-gray-500">This month alone</div>
+              <div className="text-sm text-gray-500"></div>
             </div>
             
             <div className="text-center p-8 bg-gradient-to-br from-green-50 to-green-100 rounded-2xl transform hover:scale-105 transition-transform duration-300">
               <div className="text-4xl md:text-5xl font-bold text-green-600 mb-2">100%</div>
               <div className="text-gray-700 font-semibold mb-1">Fast</div>
-              <div className="text-sm text-gray-500">Calculation Rate</div>
+              <div className="text-sm text-gray-500"></div>
             </div>
             
             <div className="text-center p-8 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl transform hover:scale-105 transition-transform duration-300">
@@ -275,7 +275,7 @@ export default function HomePage() {
             <div className="text-center p-8 bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl transform hover:scale-105 transition-transform duration-300">
               <div className="text-4xl md:text-5xl font-bold text-orange-600 mb-2">24/7</div>
               <div className="text-gray-700 font-semibold mb-1">Always Available</div>
-              <div className="text-sm text-gray-500">Free to use anytime</div>
+              <div className="text-sm text-gray-500"></div>
             </div>
           </div>
         </div>

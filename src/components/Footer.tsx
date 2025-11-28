@@ -67,15 +67,6 @@ export default function Footer() {
             {/* Social Links */}
             <div className="flex space-x-4">
               <a
-                href="https://twitter.com/rentalscoutpro"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors p-3 rounded-xl hover:bg-gray-800"
-                aria-label="Follow us on Twitter"
-              >
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a
                 href="https://linkedin.com/company/rentalscoutpro"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -83,13 +74,6 @@ export default function Footer() {
                 aria-label="Connect on LinkedIn"
               >
                 <Linkedin className="w-5 h-5" />
-              </a>
-              <a
-                href="mailto:hello@rentalscoutpro.com"
-                className="text-gray-400 hover:text-white transition-colors p-3 rounded-xl hover:bg-gray-800"
-                aria-label="Send us an email"
-              >
-                <Mail className="w-5 h-5" />
               </a>
             </div>
           </div>
@@ -197,21 +181,6 @@ export default function Footer() {
             </div>
           </div>
         </div>
-      </div>
-
-          {/* Right - Legal Links (ADD THIS) */}
-      <div className="flex flex-wrap justify-center gap-4 text-sm">
-        <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors">
-          Privacy Policy
-        </Link>
-        <span className="text-gray-600">•</span>
-        <Link href="/terms" className="text-gray-400 hover:text-white transition-colors">
-          Terms of Service
-        </Link>
-        <span className="text-gray-600">•</span>
-        <Link href="/cookie-settings" className="text-gray-400 hover:text-white transition-colors">
-          Cookie Settings
-        </Link>
       </div>
     </footer>
   );
