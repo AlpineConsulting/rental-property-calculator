@@ -269,7 +269,7 @@ export default function HomePage() {
             <div className="text-center p-8 bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl transform hover:scale-105 transition-transform duration-300">
               <div className="text-4xl md:text-5xl font-bold text-purple-600 mb-2">5★</div>
               <div className="text-gray-700 font-semibold mb-1">User Rating</div>
-              <div className="text-sm text-gray-500">Based on 500+ reviews</div>
+              <div className="text-sm text-gray-500"></div>
             </div>
             
             <div className="text-center p-8 bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl transform hover:scale-105 transition-transform duration-300">
