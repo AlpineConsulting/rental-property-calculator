@@ -107,7 +107,7 @@ export default function AffiliateCallToAction() {
         {/* Bottom Trust Signal */}
         <div className="mt-12 text-center">
           <p className="text-sm text-gray-500">
-            <strong>Sponsored Links:</strong> We may earn commissions from some of these partners.{' '}
+            <strong>Sponsored Links:</strong> We may earn commissions from some of these third parties.{' '}
             <Link href="/guide/resources" className="text-blue-600 hover:text-blue-700 underline">
               See all resources →
             </Link>

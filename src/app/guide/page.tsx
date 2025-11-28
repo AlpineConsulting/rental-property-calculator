@@ -86,7 +86,7 @@ export default function ResourcesPage() {
         <div className="max-w-5xl mx-auto text-center">
           <div className="inline-flex items-center px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium mb-6">
             <Briefcase className="w-4 h-4 mr-2" />
-            Trusted Partner Resources
+            Resources
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
@@ -94,7 +94,7 @@ export default function ResourcesPage() {
           </h1>
           
           <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Carefully selected partners to help you finance, analyze, insure, and manage your rental properties.
+            Curated to help you deternime your need to finance, analyze, insure, and manage properties.
           </p>
         </div>
       </section>

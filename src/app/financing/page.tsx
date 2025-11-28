@@ -157,7 +157,7 @@ export default function FinancingPage() {
           </h1>
           
           <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto leading-relaxed">
-            From first-time buyers to experienced portfolio builders. Conventional loans, DSCR financing, and bridge loans from trusted lenders.
+            From first-time buyers to experienced portfolio builders. Conventional loans, DSCR financing, and bridge loans from lenders.
           </p>
 
           <div className="flex flex-wrap justify-center gap-4 text-sm">

@@ -12,14 +12,13 @@ export default function LegalPage() {
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8 md:p-12">
         
         {/* Warning Banner */}
-        <div className="bg-yellow-50 border-l-4 border-yellow-400 p-6 mb-8 rounded-lg">
-          <div className="flex items-start">
-            <AlertTriangle className="w-6 h-6 text-yellow-600 mr-3 flex-shrink-0 mt-1" />
+        <div>
+          <div>
             <div>
-              <h3 className="text-lg font-bold text-yellow-900 mb-2">
+              <h3 className="text-3xl font-bold mb-2">
                 Rental Scout Pro Terms of Use
               </h3>
-              <p className="text-yellow-800">
+              <p>
               These Terms of Use apply to all users of this Site, whether or not you are a registered member. By accessing or using any part of this Site or Content or by clicking a box that states that you accept or agree to these Terms of Use, you agree that you have read and agree to comply with and be bound by these Terms of Use. If you do not agree to these Terms of Use, you may not access or use this Site or any Content. If you are entering into these Terms of Use on behalf of an entity, by accessing or using any part of this Site or Content or by clicking a box that states that you accept or agree to these Terms of Use, you represent and warrant that you have authority to bind that entity to these Terms of Use.
               </p>
             </div>
@@ -27,28 +26,28 @@ export default function LegalPage() {
         </div>
 
         {/* Section 1: Disclaimer */}
-        <section id="disclaimer" className="mb-12">
-          <div className="flex items-center mb-6">
-            <Shield className="w-8 h-8 text-blue-600 mr-3" />
+        <section id="disclaimer" className="mb-12 mt-5">
+          <div>
             <h2 className="text-3xl font-bold text-gray-900">
               Disclaimer & Important Notice
             </h2>
           </div>
           
           <div className="prose prose-lg max-w-none text-gray-700 space-y-4">
-            <div className="bg-red-50 border-l-4 border-red-500 p-6 rounded-lg">
-              <h3 className="text-xl font-bold text-red-900 mb-3">CRITICAL DISCLAIMER</h3>
-              <p className="text-red-800 font-semibold mb-4">
+            <div>
+              <h3></h3>
+              <p className="font-semibold mb-4 mt-5">
                 Rental Scout Pro, this website, content and tools are provided for INFORMATIONAL AND 
                 EDUCATIONAL PURPOSES ONLY and does NOT constitute:
               </p>
-              <ul className="list-disc pl-6 space-y-2 text-red-800">
+              <ul className="list-disc pl-6 space-y-2 ">
                 <li>Financial advice or financial planning services</li>
                 <li>Investment advice or investment recommendations</li>
                 <li>Legal advice or legal counsel</li>
                 <li>Tax advice or tax preparation services</li>
                 <li>Real estate brokerage or agency services</li>
                 <li>Accounting or bookkeeping services</li>
+                <li>Or other</li>
               </ul>
             </div>
 
@@ -110,7 +109,7 @@ export default function LegalPage() {
           </h3>
           
           <div className="prose prose-lg max-w-none text-gray-700 space-y-4">
-            <p className="text-red-600 font-bold">
+            <p className="mt-5">
             These Terms of Use apply to all users of this Site, whether or not you are a registered member. By accessing or using any part of this Site or Content or by clicking a box that states that you accept or agree to these Terms of Use, you agree that you have read and agree to comply with and be bound by these Terms of Use. If you do not agree to these Terms of Use, you may not access or use this Site or any Content. If you are entering into these Terms of Use on behalf of an entity, by accessing or using any part of this Site or Content or by clicking a box that states that you accept or agree to these Terms of Use, you represent and warrant that you have authority to bind that entity to these Terms of Use.
             </p>
             
@@ -148,9 +147,17 @@ export default function LegalPage() {
             </p>
 
             <p className="font-semibold">
-              Our affiliate relationships do NOT influence the calculator's calculations or the 
+              Our affiliate relationships do NOT influence the calculator's calculations or the
               educational content we provide. All calculations use industry-standard formulas 
               regardless of affiliate partnerships.
+            </p>
+
+            <p>
+              These links are websites are operated by third parties or allow you to interact with third-party
+              businesses. Because we have no control over third-party websites or businesses, we are not responsible for the availability
+              of those websites and do not endorse and are not responsible or liable for any services, products, content, advertising,
+              services, products, or other materials on or available from such third parties, including their websites. Rental Scout Pro
+              shall not be responsible for any product, services, content, advertising or materials of such third parties.
             </p>
           </div>
         </section>
@@ -301,39 +308,6 @@ export default function LegalPage() {
               <li>• <strong>Legal Requirements:</strong> When required by law, court order, or to protect our rights</li>
               <li>• <strong>Business Transfers:</strong> In connection with a merger, sale, or acquisition of our business</li>
             </ul>
-
-            <h2 className="text-xl font-bold text-gray-900 mt-12 mb-6">Your Rights (GDPR & CCPA)</h2>
-            
-            <p className="text-gray-700 leading-relaxed mb-6">
-              Depending on your location, you may have the following rights:
-            </p>
-
-            <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-6 mb-6">
-              <h4 className="font-bold text-blue-900 mb-3">EU/EEA Users (GDPR Rights):</h4>
-              <ul className="space-y-2 text-gray-700">
-                <li>• <strong>Access:</strong> Request a copy of data we hold about you</li>
-                <li>• <strong>Rectification:</strong> Request correction of inaccurate data</li>
-                <li>• <strong>Erasure:</strong> Request deletion of your data ("right to be forgotten")</li>
-                <li>• <strong>Restriction:</strong> Request limitation of data processing</li>
-                <li>• <strong>Portability:</strong> Request transfer of your data to another service</li>
-                <li>• <strong>Objection:</strong> Object to processing of your data</li>
-                <li>• <strong>Withdraw Consent:</strong> Withdraw consent at any time (for consent-based processing)</li>
-              </ul>
-            </div>
-
-            <div className="bg-purple-50 border-2 border-purple-200 rounded-xl p-6 mb-6">
-              <h4 className="font-bold text-purple-900 mb-3">California Users (CCPA Rights):</h4>
-              <ul className="space-y-2 text-gray-700">
-                <li>• Request disclosure of personal information collected</li>
-                <li>• Request deletion of personal information</li>
-                <li>• Opt-out of sale of personal information (we do not sell personal data)</li>
-                <li>• Non-discrimination for exercising privacy rights</li>
-              </ul>
-            </div>
-
-            <p className="text-gray-700 leading-relaxed mb-6">
-              To exercise any of these rights, please contact us at the email address provided below.
-            </p>
 
             <h2 className="text-xl font-bold text-gray-900 mt-12 mb-6">Data Retention</h2>
             

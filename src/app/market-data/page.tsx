@@ -30,7 +30,6 @@ export default function MarketDataPage() {
         'Regulation tracking by city'
       ],
       bestFor: 'Short-term rental investors (Airbnb, VRBO)',
-      pricing: 'From $19.95/month',
       url: '/go/airdna',
       ctaText: 'Start Free Trial'
     },
@@ -55,7 +54,6 @@ export default function MarketDataPage() {
         'API access available'
       ],
       bestFor: 'Long-term rental investors and landlords',
-      pricing: 'From $24.99/month',
       url: '/go/rentometer',
       ctaText: 'Get Started Free'
     }
@@ -172,10 +170,6 @@ export default function MarketDataPage() {
                         <span className="text-sm font-semibold text-blue-900">Best For: </span>
                         <span className="text-sm text-blue-800">{tool.bestFor}</span>
                       </div>
-                      <div className="bg-green-50 px-4 py-2 rounded-lg">
-                        <span className="text-sm font-semibold text-green-900">Pricing: </span>
-                        <span className="text-sm text-green-800">{tool.pricing}</span>
-                      </div>
                     </div>
                   </div>
 
@@ -284,11 +278,6 @@ export default function MarketDataPage() {
                   <td className="px-6 py-4 font-medium text-gray-900">Occupancy Data</td>
                   <td className="px-6 py-4 text-center"><CheckCircle className="w-5 h-5 text-green-600 mx-auto" /></td>
                   <td className="px-6 py-4 text-center text-gray-400">—</td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 font-medium text-gray-900">Starting Price</td>
-                  <td className="px-6 py-4 text-center text-sm font-semibold">$19.95/mo</td>
-                  <td className="px-6 py-4 text-center text-sm font-semibold">$24.99/mo</td>
                 </tr>
               </tbody>
             </table>

@@ -32,7 +32,6 @@ export default function InsurancePage() {
         'No inspection required for most properties'
       ],
       bestFor: 'Traditional long-term rental properties',
-      avgPrice: '$50-150/month',
       url: '/go/steadily',
       ctaText: 'Get Instant Quote'
     },
@@ -59,7 +58,6 @@ export default function InsurancePage() {
         'Platform-approved insurance'
       ],
       bestFor: 'Short-term rental hosts (Airbnb, VRBO)',
-      avgPrice: '$75-200/month',
       url: '/go/proper',
       ctaText: 'Get STR Quote'
     }
@@ -104,7 +102,7 @@ export default function InsurancePage() {
       <section className="py-6 px-4 bg-yellow-50 border-b border-yellow-200">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-sm text-yellow-800">
-            <strong>Disclosure:</strong> We may earn a commission if you purchase insurance through these partners. This helps keep our calculator free.
+            <strong>Disclosure:</strong> We may earn a commission if you purchase insurance through these third parties. This helps keep our calculator free.
           </p>
         </div>
       </section>
@@ -175,10 +173,6 @@ export default function InsurancePage() {
                       <div className="bg-blue-50 px-4 py-2 rounded-lg">
                         <span className="text-sm font-semibold text-blue-900">Best For: </span>
                         <span className="text-sm text-blue-800">{provider.bestFor}</span>
-                      </div>
-                      <div className="bg-purple-50 px-4 py-2 rounded-lg">
-                        <span className="text-sm font-semibold text-purple-900">Avg. Price: </span>
-                        <span className="text-sm text-purple-800">{provider.avgPrice}</span>
                       </div>
                     </div>
                   </div>
@@ -298,11 +292,6 @@ export default function InsurancePage() {
                   <td className="px-6 py-4 font-medium text-gray-900">Traditional Tenants</td>
                   <td className="px-6 py-4 text-center"><CheckCircle className="w-5 h-5 text-green-600 mx-auto" /></td>
                   <td className="px-6 py-4 text-center text-gray-400">—</td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 font-medium text-gray-900">Average Monthly Cost</td>
-                  <td className="px-6 py-4 text-center text-sm font-semibold">$50-150</td>
-                  <td className="px-6 py-4 text-center text-sm font-semibold">$75-200</td>
                 </tr>
               </tbody>
             </table>
