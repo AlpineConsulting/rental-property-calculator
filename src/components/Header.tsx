@@ -43,7 +43,7 @@ export default function Header() {
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-green-500 rounded-xl flex items-center justify-center group-hover:from-blue-600 group-hover:to-green-600 transition-all duration-300 shadow-lg group-hover:shadow-xl overflow-hidden">
              <Image 
-              src="public/images/logo-white.png" 
+              src="/images/logo-white.png" 
                 alt="Rental Scout Pro" 
                 width={32} 
                 height={32}
