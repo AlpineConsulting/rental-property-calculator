@@ -786,7 +786,7 @@ export default function RentalPropertyCalculator() {
               {/* Cash Flow Breakdown */}
               <div className="bg-gradient-to-br from-gray-50 to-blue-50 p-6 rounded-2xl">
                 <h4 className="font-bold text-gray-900 mb-4 flex items-center">
-                  <Info className="w-5 h-5 text-blue-600 mr-2" />
+                  <BarChart3 className="w-5 h-5 text-blue-600 mr-2" />
                   Monthly Cash Flow Breakdown
                 </h4>
                 <div className="space-y-3 text-sm">
@@ -860,7 +860,7 @@ export default function RentalPropertyCalculator() {
               {/* Peroformance Summary */}
               <div className="bg-gradient-to-br from-gray-50 to-blue-50 p-6 rounded-2xl">
                 <h4 className="font-bold text-gray-900 mb-4 flex items-center">
-                  <Info className="w-5 h-5 text-blue-600 mr-2" />
+                  <TrendingUp className="w-5 h-5 text-blue-600 mr-2" />
                   Performance Summary
                 </h4>
                 <div className="text-sm text-gray-700 space-y-2">
