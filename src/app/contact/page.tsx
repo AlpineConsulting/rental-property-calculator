@@ -31,10 +31,12 @@ export default function ContactPage() {
       const form = e.currentTarget;
       const formDataToSend = new FormData(form);
   
-      const response = await fetch('/', {
+      const response = await fetch('https://formspree.io/f/mrbnzknv', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formDataToSend as any).toString()
+        body: formDataToSend,
+        headers: {
+          'Accept': 'application/json'
+        }
       });
   
       if (response.ok) {
