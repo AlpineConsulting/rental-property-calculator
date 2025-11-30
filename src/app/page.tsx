@@ -35,7 +35,7 @@ export default function HomePage() {
               Analyze Your Next{' '}
               <span className="relative">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-blue-700 to-green-600">
-                  Rental Property
+                  Property
                 </span>
                 <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-green-600 rounded-full transform scale-x-0 animate-pulse"></div>
               </span>
@@ -43,7 +43,7 @@ export default function HomePage() {
             
             {/* Subheadline */}
             <p className="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto mb-12 leading-relaxed font-medium">
-              Access the data you need to evaluate your next real estate investment with our comprehensive calculator. 
+              Access the data you need to evaluate your next real estate opportunity with our comprehensive calculator. 
               Instantly analyze <strong>cap rates</strong>, <strong>cash flow</strong>, <strong>1% rule compliance</strong>, and more.
             </p>
 
@@ -98,7 +98,7 @@ export default function HomePage() {
               Everything You Need for Property Analysis
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Professional-grade metrics and insights in an intuitive interface designed for real estate investors
+              Professional-grade metrics and insights in an intuitive interface designed for everyone
             </p>
           </div>
 
@@ -137,7 +137,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-4">1% Rule Check</h3>
               <p className="text-gray-600 leading-relaxed mb-4">
-                Quick screening tool to identify potentially profitable properties using the popular 1% investment rule.
+                Quick screening tool to identify potentially profitable properties using the popular 1% rule.
               </p>
               <div className="flex items-center text-purple-600 font-semibold text-sm">
                 <CheckCircle className="w-4 h-4 mr-2" />
@@ -151,7 +151,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-4">Investment Metrics</h3>
               <p className="text-gray-600 leading-relaxed mb-4">
-                Cap rate, DSCR, ROI, cash-on-cash return, and other essential real estate investment metrics.
+                Cap rate, DSCR, ROI, cash-on-cash return, and other essential real estate metrics.
               </p>
               <div className="flex items-center text-orange-600 font-semibold text-sm">
                 <CheckCircle className="w-4 h-4 mr-2" />
@@ -176,7 +176,7 @@ export default function HomePage() {
               Try Our Calculator
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Get instant analysis of your rental property investment potential with our professional-grade calculator
+              Get instant analysis of rental potential with our professional-grade calculator
             </p>
           </div>
           

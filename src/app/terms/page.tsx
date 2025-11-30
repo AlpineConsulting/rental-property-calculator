@@ -49,6 +49,13 @@ export default function LegalPage() {
                 <li>Accounting or bookkeeping services</li>
                 <li>Or other</li>
               </ul>
+
+              <p>
+              Color displays, icons, and visual indicators in this calculator are intended solely to enhance
+              readability and user experience. They do not represent financial advice, performance predictions,
+               professional recommendations, or risk assessments, and should not be relied upon when making investment decisions.
+                Always consult qualified professionals before acting on financial information
+              </p>
             </div>
 
             <h3 className="text-xl font-bold text-gray-900 mt-6">No Professional Relationship</h3>
@@ -176,7 +183,7 @@ export default function LegalPage() {
             
             <h3 className="text-xl font-bold text-gray-900 mt-8 mb-4"> Information You Provide</h3>
             <p className="text-gray-700 leading-relaxed mb-6">
-              We do not require you to create an account or provide personal information to use our rental property calculator. 
+              We do not require you to create an account or provide personal information to use our calculator or website. 
               However, you may voluntarily provide information when you:
             </p>
             <ul className="space-y-2 text-gray-700 mb-6">

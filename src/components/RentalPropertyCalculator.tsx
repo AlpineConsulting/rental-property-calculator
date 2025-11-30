@@ -1,17 +1,24 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
-import { Calculator, DollarSign, TrendingUp, AlertTriangle, Info, CheckCircle, XCircle, BarChart3, Target, Play } from 'lucide-react';
+import React, { useState, useCallback, useEffect } from 'react';
+import {DollarSign, TrendingUp, AlertTriangle, Info, CheckCircle, XCircle, BarChart3, Target, Play } from 'lucide-react';
 import Image from 'next/image';
+import { useMortgageRate } from '@/hooks/useMortgageRate';
 
 interface CalculatorResults {
   purchasePrice: number;
   monthlyRent: number;
   downPayment: number;
+  closingCosts: number;
+  rehabCosts: number;
   interestRate: number;
   propertyTax: number;
   insurance: number;
+  hoaFees: number;
+  propertyManagement: number;
   maintenance: number;
+  capex: number;
+  utilities: number;
   vacancy: number;
   loanAmount: number;
   monthlyPayment: number;
@@ -24,24 +31,73 @@ interface CalculatorResults {
   onePercentRule: number;
   capRate: number;
   cashOnCash: number;
+  totalCashInvested: number;
+  dscr: number;
+  breakEvenOccupancy: number;
+  paybackPeriod: number;
+  operatingExpenseRatio: number;
+  profitPer1000: number;
 }
 
+// Add window.gtag type definition
+declare global {
+  interface Window {
+    gtag?: (command: string, targetId: string, config?: any) => void;
+  }
+}
+
+// Utility functions for consistent rounding to 2 decimal places
+// Standard rounding: 0.345 → 0.35, 0.344 → 0.34
+const roundTo2Decimals = (value: number): number => {
+  return Math.round(value * 100) / 100;
+};
+
+const formatCurrency = (value: number): string => {
+  return value.toLocaleString('en-US', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+};
+
+const formatPercent = (value: number): string => {
+  return value.toFixed(2);
+};
+
 export default function RentalPropertyCalculator() {
+  // Fetch current mortgage rate
+  const { rate: currentRate, lastUpdated, isLoading: rateLoading, error: rateError } = useMortgageRate();
+
   // Input states - using object to prevent re-render issues
   const [inputs, setInputs] = useState({
     purchasePrice: '200000',
     monthlyRent: '2200',
     downPayment: '20000',
-    interestRate: '5.99',
+    closingCosts: '6000',
+    rehabCosts: '0',
+    interestRate: '5.99', // Will be updated by useEffect when rate loads
     propertyTax: '100',
     insurance: '100',
+    hoaFees: '0',
+    propertyManagement: '0',
     maintenance: '200',
+    capex: '100',
+    utilities: '0',
     vacancy: '5'
   });
   
   const [results, setResults] = useState<CalculatorResults | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
   const [hasCalculated, setHasCalculated] = useState(false);
+
+  // Update interest rate when it loads from API
+  useEffect(() => {
+    if (!rateLoading && !rateError) {
+      setInputs(prev => ({
+        ...prev,
+        interestRate: currentRate.toFixed(2)
+      }));
+    }
+  }, [currentRate, rateLoading, rateError]);
 
   // Stable input handler that doesn't cause re-renders
   const handleInputChange = useCallback((field: keyof typeof inputs, value: string) => {
@@ -54,6 +110,21 @@ export default function RentalPropertyCalculator() {
     }));
   }, []);
 
+  // Format input to 2 decimals when user leaves the field
+  const handleInputBlur = useCallback((field: keyof typeof inputs) => {
+    const value = inputs[field];
+    const numValue = parseFloat(value.replace(/,/g, ''));
+    
+    if (!isNaN(numValue)) {
+      // Round to 2 decimals
+      const rounded = roundTo2Decimals(numValue);
+      setInputs(prev => ({
+        ...prev,
+        [field]: rounded.toFixed(2) // Always show 2 decimals
+      }));
+    }
+  }, [inputs]);
+
   // Manual calculation function
   const performCalculation = useCallback(() => {
     setIsCalculating(true);
@@ -63,30 +134,57 @@ export default function RentalPropertyCalculator() {
       purchasePrice: parseFloat(inputs.purchasePrice.replace(/,/g, '')) || 0,
       monthlyRent: parseFloat(inputs.monthlyRent.replace(/,/g, '')) || 0,
       downPayment: parseFloat(inputs.downPayment.replace(/,/g, '')) || 0,
+      closingCosts: parseFloat(inputs.closingCosts.replace(/,/g, '')) || 0,
+      rehabCosts: parseFloat(inputs.rehabCosts.replace(/,/g, '')) || 0,
       interestRate: parseFloat(inputs.interestRate) || 0,
       propertyTax: parseFloat(inputs.propertyTax.replace(/,/g, '')) || 0,
       insurance: parseFloat(inputs.insurance.replace(/,/g, '')) || 0,
+      hoaFees: parseFloat(inputs.hoaFees.replace(/,/g, '')) || 0,
+      propertyManagement: parseFloat(inputs.propertyManagement.replace(/,/g, '')) || 0,
       maintenance: parseFloat(inputs.maintenance.replace(/,/g, '')) || 0,
+      capex: parseFloat(inputs.capex.replace(/,/g, '')) || 0,
+      utilities: parseFloat(inputs.utilities.replace(/,/g, '')) || 0,
       vacancy: parseFloat(inputs.vacancy) || 0
     };
 
     // Perform calculations
-    const loanAmount = values.purchasePrice - values.downPayment;
+    const loanAmount = roundTo2Decimals(values.purchasePrice - values.downPayment);
     const monthlyRate = values.interestRate / 100 / 12;
     const monthlyPayment = loanAmount > 0 ? 
-      (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, 360)) / (Math.pow(1 + monthlyRate, 360) - 1) : 0;
+    roundTo2Decimals((loanAmount * monthlyRate * Math.pow(1 + monthlyRate, 360)) / (Math.pow(1 + monthlyRate, 360) - 1)) : 0;
     
-    const grossIncome = values.monthlyRent;
-    const vacancyLoss = grossIncome * (values.vacancy / 100);
-    const effectiveIncome = grossIncome - vacancyLoss;
-    const totalExpenses = values.propertyTax + values.insurance + values.maintenance;
-    const noi = effectiveIncome - totalExpenses;
-    const cashFlow = noi - monthlyPayment;
+    const grossIncome = roundTo2Decimals(values.monthlyRent);
+    const vacancyLoss = roundTo2Decimals(grossIncome * (values.vacancy / 100));
+    const effectiveIncome = roundTo2Decimals(grossIncome - vacancyLoss);
     
-    const onePercentRule = values.purchasePrice > 0 ? (values.monthlyRent / values.purchasePrice) * 100 : 0;
-    const capRate = values.purchasePrice > 0 ? ((noi * 12) / values.purchasePrice) * 100 : 0;
-    const cashOnCash = values.downPayment > 0 ? ((cashFlow * 12) / values.downPayment) * 100 : 0;
+    // Total monthly operating expenses
+    const totalExpenses = roundTo2Decimals(
+      values.propertyTax + 
+      values.insurance + 
+      values.hoaFees + 
+      values.propertyManagement + 
+      values.maintenance + 
+      values.capex + 
+      values.utilities
+    );
 
+    const noi = roundTo2Decimals(effectiveIncome - totalExpenses);
+    const cashFlow = roundTo2Decimals(noi - monthlyPayment);
+    
+    // Total cash invested (includes one-time costs)
+    const totalCashInvested = roundTo2Decimals(values.downPayment + values.closingCosts + values.rehabCosts);
+    
+    const onePercentRule = values.purchasePrice > 0 ? roundTo2Decimals((values.monthlyRent / values.purchasePrice) * 100) : 0;
+    const capRate = values.purchasePrice > 0 ? roundTo2Decimals(((noi * 12) / values.purchasePrice) * 100) : 0;
+    const cashOnCash = totalCashInvested > 0 ? roundTo2Decimals(((cashFlow * 12) / totalCashInvested) * 100) : 0;
+
+    // Additional investment metrics
+    const dscr = monthlyPayment > 0 ? roundTo2Decimals(noi / monthlyPayment) : 0;
+    const breakEvenOccupancy = grossIncome > 0 ? roundTo2Decimals(((monthlyPayment + totalExpenses) / grossIncome) * 100) : 0;
+    const paybackPeriod = cashFlow > 0 ? roundTo2Decimals(totalCashInvested / (cashFlow * 12)) : 0;
+    const operatingExpenseRatio = grossIncome > 0 ? roundTo2Decimals((totalExpenses / grossIncome) * 100) : 0;
+    const profitPer1000 = totalCashInvested > 0 ? roundTo2Decimals(cashFlow / (totalCashInvested / 1000)) : 0;
+    
     // Store results
     const calculatedResults: CalculatorResults = {
       ...values,
@@ -100,7 +198,13 @@ export default function RentalPropertyCalculator() {
       cashFlow,
       onePercentRule,
       capRate,
-      cashOnCash
+      cashOnCash,
+      totalCashInvested,
+      dscr,
+      breakEvenOccupancy,
+      paybackPeriod,
+      operatingExpenseRatio,
+      profitPer1000
     };
 
     // Simulate calculation time
@@ -108,15 +212,15 @@ export default function RentalPropertyCalculator() {
       setResults(calculatedResults);
       setIsCalculating(false);
       setHasCalculated(true);
-
-     // Track calculator usage in Google Analytics
-     if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'calculator_used', {
-        event_category: 'engagement',
-        event_label: 'property_analysis',
-        value: 1
-      });
-    } 
+      
+      // Track calculator usage in Google Analytics
+      if (typeof window !== 'undefined' && window.gtag) {
+        window.gtag('event', 'calculator_used', {
+          event_category: 'engagement',
+          event_label: 'property_analysis',
+          value: 1
+        } as any);
+      }
     }, 800);
   }, [inputs]);
 
@@ -146,8 +250,11 @@ export default function RentalPropertyCalculator() {
           <div className="flex items-start space-x-3">
             <AlertTriangle className="w-5 h-5 text-yellow-300 mt-0.5 flex-shrink-0" />
             <p className="text-sm text-white/90">
-              <strong>Disclaimer:</strong> This calculator provides estimates for informational purposes only. 
-              Results are not investment advice. Consult qualified professionals before making investment decisions.
+              <strong>Disclaimer:</strong> The 1% rule is not a measure of profitability or a formal investment metric; it is simply a general rule of thumb.<br></br>
+              This calculator provides estimates for informational purposes only. 
+              Results are not investment advice. Consult qualified professionals before making decisions.
+              <br></br>
+              Colors, Icons, and Symbols used in this model are not investment ratings. They are simply visual cues to help you read the results more easily and should not be taken as advice or guidance.
             </p>
           </div>
         </div>
@@ -178,7 +285,8 @@ export default function RentalPropertyCalculator() {
                     inputMode="numeric"
                     value={inputs.purchasePrice}
                     onChange={(e) => handleInputChange('purchasePrice', e.target.value)}
-                    placeholder="400,000"
+                    onBlur={() => handleInputBlur('purchasePrice')}
+                    placeholder="200,000"
                     className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white hover:border-gray-400"
                     disabled={isCalculating}
                   />
@@ -198,6 +306,7 @@ export default function RentalPropertyCalculator() {
                     inputMode="numeric"
                     value={inputs.monthlyRent}
                     onChange={(e) => handleInputChange('monthlyRent', e.target.value)}
+                    onBlur={() => handleInputBlur('monthlyRent')}
                     placeholder="2,200"
                     className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white hover:border-gray-400"
                     disabled={isCalculating}
@@ -218,7 +327,8 @@ export default function RentalPropertyCalculator() {
                     inputMode="numeric"
                     value={inputs.downPayment}
                     onChange={(e) => handleInputChange('downPayment', e.target.value)}
-                    placeholder="80,000"
+                    onBlur={() => handleInputBlur('downPayment')}
+                    placeholder="20,000"
                     className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white hover:border-gray-400"
                     disabled={isCalculating}
                   />
@@ -229,23 +339,85 @@ export default function RentalPropertyCalculator() {
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-gray-700">
                   Interest Rate
-                  <span className="ml-2 text-gray-400 cursor-help" title="Annual interest rate for the mortgage">ℹ️</span>
+                  {!rateLoading && !rateError && lastUpdated && (
+                    <span className="ml-2 text-xs text-green-600 font-normal">
+                      ✓ Current rate (updated {new Date(lastUpdated).toLocaleDateString()})
+                    </span>
+                  )}
+                  {rateError && (
+                    <span className="ml-2 text-xs text-gray-500 font-normal">
+                      (using default rate)
+                    </span>
+                  )}
+                  <span className="ml-2 text-gray-400 cursor-help" title="Annual interest rate on the loan">ℹ️</span>
                 </label>
                 <div className="relative">
                   <input
                     type="text"
-                    inputMode="numeric"
                     value={inputs.interestRate}
                     onChange={(e) => handleInputChange('interestRate', e.target.value)}
-                    placeholder="6.5"
-                    className="w-full pr-8 pl-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white hover:border-gray-400"
+                    onBlur={() => handleInputBlur('interestRate')}
+                    className="w-full pl-4 pr-10 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-gray-900 font-medium"
+                    placeholder="5.99"
                     disabled={isCalculating}
                   />
-                  <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">%</span>
+                  <span className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">%</span>
                 </div>
               </div>
             </div>
           </div>
+
+          {/* One-Time Costs */}
+          <div>
+            <h3 className="text-xl font-bold text-gray-900 mb-6 flex items-center">
+              <div className="w-6 h-6 bg-purple-500 rounded-lg flex items-center justify-center mr-3">
+                <DollarSign className="w-4 h-4 text-white" />
+              </div>
+              One-Time Costs
+            </h3>
+            <div className="grid grid-cols-1 gap-6">
+              {/* Closing Costs */}
+              <div className="space-y-2">
+                <label className="block text-sm font-semibold text-gray-700">
+                  Closing Costs
+                  <span className="ml-2 text-gray-400 cursor-help" title="One-time costs: appraisal, title, escrow fees (typically 2-3% of purchase price)">ℹ️</span>
+                </label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
+                  <input
+                    type="text"
+                    value={inputs.closingCosts}
+                    onChange={(e) => handleInputChange('closingCosts', e.target.value)}
+                    onBlur={() => handleInputBlur('closingCosts')}
+                    className="w-full pl-8 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-gray-900 font-medium"
+                    placeholder="6,000"
+                    disabled={isCalculating}
+                  />
+                </div>
+              </div>
+
+              {/* Rehab/Repair Costs */}
+              <div className="space-y-2">
+                <label className="block text-sm font-semibold text-gray-700">
+                  Rehab/Repair Costs
+                  <span className="ml-2 text-gray-400 cursor-help" title="One-time renovation or repair costs before renting">ℹ️</span>
+                </label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
+                  <input
+                    type="text"
+                    value={inputs.rehabCosts}
+                    onChange={(e) => handleInputChange('rehabCosts', e.target.value)}
+                    onBlur={() => handleInputBlur('rehabCosts')}
+                    className="w-full pl-8 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-gray-900 font-medium"
+                    placeholder="0"
+                    disabled={isCalculating}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
 
           {/* Monthly Expenses */}
           <div>
@@ -269,6 +441,7 @@ export default function RentalPropertyCalculator() {
                     inputMode="numeric"
                     value={inputs.propertyTax}
                     onChange={(e) => handleInputChange('propertyTax', e.target.value)}
+                    onBlur={() => handleInputBlur('propertyTax')}
                     placeholder="300"
                     className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white hover:border-gray-400"
                     disabled={isCalculating}
@@ -289,12 +462,53 @@ export default function RentalPropertyCalculator() {
                     inputMode="numeric"
                     value={inputs.insurance}
                     onChange={(e) => handleInputChange('insurance', e.target.value)}
+                    onBlur={() => handleInputBlur('insurance')}
                     placeholder="150"
                     className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white hover:border-gray-400"
                     disabled={isCalculating}
                   />
                 </div>
               </div>
+
+              {/* HOA Fees - NEW */}
+              <div className="space-y-2">
+                <label className="block text-sm font-semibold text-gray-700">
+                  HOA Fees (Monthly)
+                  <span className="ml-2 text-gray-400 cursor-help" title="Homeowners Association fees (common for condos/townhomes)">ℹ️</span>
+                </label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
+                  <input
+                    type="text"
+                    value={inputs.hoaFees}
+                    onChange={(e) => handleInputChange('hoaFees', e.target.value)}
+                    onBlur={() => handleInputBlur('hoaFees')}
+                    className="w-full pl-8 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-gray-900 font-medium"
+                    placeholder="0"
+                    disabled={isCalculating}
+                  />
+                </div>
+              </div>
+
+              {/* Property Management - NEW */}
+              <div className="space-y-2">
+                <label className="block text-sm font-semibold text-gray-700">
+                  Property Management
+                  <span className="ml-2 text-gray-400 cursor-help" title="Property management fee (typically 8-10% of rent or $100-200/month)">ℹ️</span>
+                </label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
+                  <input
+                    type="text"
+                    value={inputs.propertyManagement}
+                    onChange={(e) => handleInputChange('propertyManagement', e.target.value)}
+                    onBlur={() => handleInputBlur('propertyManagement')}
+                    className="w-full pl-8 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-gray-900 font-medium"
+                    placeholder="0"
+                    disabled={isCalculating}
+                  />
+                </div>
+              </div>              
 
               {/* Maintenance */}
               <div className="space-y-2">
@@ -309,6 +523,7 @@ export default function RentalPropertyCalculator() {
                     inputMode="numeric"
                     value={inputs.maintenance}
                     onChange={(e) => handleInputChange('maintenance', e.target.value)}
+                    onBlur={() => handleInputBlur('maintenance')}
                     placeholder="200"
                     className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white hover:border-gray-400"
                     disabled={isCalculating}
@@ -316,6 +531,45 @@ export default function RentalPropertyCalculator() {
                 </div>
               </div>
 
+              {/* CapEx - NEW */}
+              <div className="space-y-2">
+                <label className="block text-sm font-semibold text-gray-700">
+                  CapEx Reserve (Monthly)
+                  <span className="ml-2 text-gray-400 cursor-help" title="Capital expenditure reserve for major repairs (roof, HVAC, etc.). Recommended: $100-200/month">ℹ️</span>
+                </label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
+                  <input
+                    type="text"
+                    value={inputs.capex}
+                    onChange={(e) => handleInputChange('capex', e.target.value)}
+                    onBlur={() => handleInputBlur('capex')}
+                    className="w-full pl-8 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-gray-900 font-medium"
+                    placeholder="100"
+                    disabled={isCalculating}
+                  />
+                </div>
+              </div>
+
+              {/* Utilities - NEW */}
+              <div className="space-y-2">
+                <label className="block text-sm font-semibold text-gray-700">
+                  Utilities (Owner Pays)
+                  <span className="ml-2 text-gray-400 cursor-help" title="Water, sewer, trash, or other utilities paid by landlord">ℹ️</span>
+                </label>
+                <div className="relative">
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
+                  <input
+                    type="text"
+                    value={inputs.utilities}
+                    onChange={(e) => handleInputChange('utilities', e.target.value)}
+                    onBlur={() => handleInputBlur('utilities')}
+                    className="w-full pl-8 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-gray-900 font-medium"
+                    placeholder="0"
+                  />
+                </div>
+              </div>
+               
               {/* Vacancy Rate */}
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-gray-700">
@@ -328,6 +582,7 @@ export default function RentalPropertyCalculator() {
                     inputMode="numeric"
                     value={inputs.vacancy}
                     onChange={(e) => handleInputChange('vacancy', e.target.value)}
+                    onBlur={() => handleInputBlur('vacancy')}
                     placeholder="5"
                     className="w-full pr-8 pl-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 bg-white hover:border-gray-400"
                     disabled={isCalculating}
@@ -357,7 +612,7 @@ export default function RentalPropertyCalculator() {
               ) : (
                 <>
                   <Play className="w-5 h-5" />
-                  <span>Calculate Investment Analysis</span>
+                  <span>Perform Analysis</span>
                 </>
               )}
             </button>
@@ -381,8 +636,9 @@ export default function RentalPropertyCalculator() {
             <ol className="text-sm text-blue-800 space-y-1">
               <li>1. Enter the property purchase price and expected monthly rent</li>
               <li>2. Add your down payment amount and loan interest rate</li>
-              <li>3. Fill in monthly expenses (taxes, insurance, maintenance)</li>
-              <li>4. Click "Calculate" to see your investment analysis</li>
+              <li>3. Input one-time costs (closing costs, rehab)</li>
+              <li>4. Fill in monthly expenses (taxes, insurance, maintenance)</li>
+              <li>5. Click "Calculate" to see your investment analysis</li>
             </ol>
           </div>
         </div>
@@ -397,10 +653,10 @@ export default function RentalPropertyCalculator() {
                
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                Ready to Analyze Your Property
+                Ready to Analyze a Property
               </h3>
               <p className="text-gray-600 max-w-sm mx-auto">
-                Fill in the property details on the left, then click "Calculate" to see your investment analysis.
+                Fill in the property details on the left, then click "Perform" to see your analysis.
               </p>
             </div>
           )}
@@ -408,9 +664,9 @@ export default function RentalPropertyCalculator() {
           {isCalculating && (
             <div className="flex flex-col items-center justify-center py-12">
               <div className="animate-spin rounded-full h-12 w-12 border-b-4 border-blue-600 mb-4"></div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Analyzing Your Investment</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">Analyzing Opportunity</h3>
               <p className="text-gray-600 text-center">
-                Calculating cash flow, cap rate, 1% rule compliance, and investment metrics...
+                Calculating cash flow, cap rate, 1% rule compliance, and other metrics...
               </p>
             </div>
           )}
@@ -423,7 +679,7 @@ export default function RentalPropertyCalculator() {
                   <div className="w-6 h-6 bg-purple-500 rounded-lg flex items-center justify-center mr-3">
                     <TrendingUp className="w-4 h-4 text-white" />
                   </div>
-                  Key Investment Metrics
+                  Key Metrics
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   <div className={`p-6 rounded-2xl border transition-all duration-300 hover:shadow-lg transform hover:-translate-y-1 ${
@@ -437,7 +693,7 @@ export default function RentalPropertyCalculator() {
                           <h4 className="text-sm font-medium text-gray-600 uppercase tracking-wide">Monthly Cash Flow</h4>
                         </div>
                         <p className={`text-2xl font-bold ${results.cashFlow > 0 ? 'text-green-600' : 'text-red-600'}`}>
-                          ${Math.round(results.cashFlow).toLocaleString()}
+                          ${formatCurrency(results.cashFlow)}
                         </p>
                       </div>
                       <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
@@ -463,7 +719,7 @@ export default function RentalPropertyCalculator() {
                           <h4 className="text-sm font-medium text-gray-600 uppercase tracking-wide">1% Rule</h4>
                         </div>
                         <p className={`text-2xl font-bold ${results.onePercentRule >= 1 ? 'text-green-600' : 'text-red-600'}`}>
-                          {results.onePercentRule.toFixed(2)}%
+                          {formatPercent(results.onePercentRule)}%
                         </p>
                         <p className="text-xs text-gray-500 mt-1">
                           {results.onePercentRule >= 1 ? 'MEETS GUIDELINE' : 'BELOW GUIDELINE'}
@@ -492,7 +748,7 @@ export default function RentalPropertyCalculator() {
                           <h4 className="text-sm font-medium text-gray-600 uppercase tracking-wide">Cap Rate</h4>
                         </div>
                         <p className={`text-2xl font-bold ${results.capRate >= 6 ? 'text-green-600' : 'text-gray-900'}`}>
-                          {results.capRate.toFixed(2)}%
+                          {formatPercent(results.capRate)}%
                         </p>
                       </div>
                       {results.capRate >= 6 && (
@@ -514,7 +770,7 @@ export default function RentalPropertyCalculator() {
                           <h4 className="text-sm font-medium text-gray-600 uppercase tracking-wide">Cash-on-Cash Return</h4>
                         </div>
                         <p className={`text-2xl font-bold ${results.cashOnCash >= 8 ? 'text-green-600' : 'text-gray-900'}`}>
-                          {results.cashOnCash.toFixed(2)}%
+                          {formatPercent(results.cashOnCash)}%
                         </p>
                       </div>
                       {results.cashOnCash >= 8 && (
@@ -536,60 +792,97 @@ export default function RentalPropertyCalculator() {
                 <div className="space-y-3 text-sm">
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">Gross Rental Income</span>
-                    <span className="font-semibold text-gray-900">${results.grossIncome.toLocaleString()}</span>
+                    <span className="font-semibold text-gray-900">${results.grossIncome}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">Vacancy Loss ({results.vacancy}%)</span>
-                    <span className="font-semibold text-red-600">-${Math.round(results.vacancyLoss).toLocaleString()}</span>
+                    <span className="font-semibold text-red-600">-${formatCurrency(results.vacancyLoss)}</span>
                   </div>
                   <div className="flex justify-between items-center border-t pt-2">
                     <span className="text-gray-600">Effective Gross Income</span>
-                    <span className="font-semibold text-gray-900">${Math.round(results.effectiveIncome).toLocaleString()}</span>
+                    <span className="font-semibold text-gray-900">${formatCurrency(results.effectiveIncome)}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">Operating Expenses</span>
-                    <span className="font-semibold text-red-600">-${results.totalExpenses.toLocaleString()}</span>
+                    <span className="font-semibold text-red-600">-${formatCurrency(results.totalExpenses)}</span>
                   </div>
+                  <div className="flex justify-between items-center text-xs text-gray-500 pl-4">
+                    <span>• Property Tax</span>
+                    <span>${formatCurrency(results.propertyTax)}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-xs text-gray-500 pl-4">
+                    <span>• Insurance</span>
+                    <span>${formatCurrency(results.insurance)}</span>
+                  </div>
+                  {results.hoaFees > 0 && (
+                    <div className="flex justify-between items-center text-xs text-gray-500 pl-4">
+                      <span>• HOA Fees</span>
+                      <span>${formatCurrency(results.hoaFees)}</span>
+                    </div>
+                  )}
+                  {results.propertyManagement > 0 && (
+                    <div className="flex justify-between items-center text-xs text-gray-500 pl-4">
+                      <span>• Property Management</span>
+                      <span>${formatCurrency(results.propertyManagement)}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between items-center text-xs text-gray-500 pl-4">
+                    <span>• Maintenance</span>
+                    <span>${formatCurrency(results.maintenance)}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-xs text-gray-500 pl-4">
+                    <span>• CapEx Reserve</span>
+                    <span>${formatCurrency(results.capex)}</span>
+                  </div>
+                  {results.utilities > 0 && (
+                    <div className="flex justify-between items-center text-xs text-gray-500 pl-4">
+                      <span>• Utilities</span>
+                      <span>${formatCurrency(results.utilities)}</span>
+                    </div>
+                  )}
                   <div className="flex justify-between items-center border-t pt-2">
                     <span className="text-gray-600">Net Operating Income</span>
-                    <span className="font-semibold text-gray-900">${Math.round(results.noi).toLocaleString()}</span>
+                    <span className="font-semibold text-gray-900">${formatCurrency(results.noi)}</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">Debt Service</span>
-                    <span className="font-semibold text-red-600">-${Math.round(results.monthlyPayment).toLocaleString()}</span>
+                    <span className="font-semibold text-red-600">-${formatCurrency(results.monthlyPayment)}</span>
                   </div>
                   <div className="flex justify-between items-center border-t-2 border-gray-400 pt-3 text-base">
                     <span className="font-bold text-gray-900">Net Cash Flow</span>
                     <span className={`font-bold ${results.cashFlow >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-                      ${Math.round(results.cashFlow).toLocaleString()}
+                      ${formatCurrency(results.cashFlow)}
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* Investment Summary */}
-              <div className={`p-6 rounded-2xl border-l-4 ${
-                results.cashFlow > 100 && results.onePercentRule >= 1 && results.capRate >= 6 
-                  ? 'bg-green-50 border-green-400' 
-                  : results.cashFlow > 0 && (results.onePercentRule >= 0.8 || results.capRate >= 4)
-                  ? 'bg-yellow-50 border-yellow-400'
-                  : 'bg-red-50 border-red-400'
-              }`}>
-                <h4 className="font-bold text-gray-900 mb-3 flex items-center">
-                  {results.cashFlow > 100 && results.onePercentRule >= 1 && results.capRate >= 6 ? (
-                    <CheckCircle className="w-5 h-5 text-green-600 mr-2" />
-                  ) : (
-                    <AlertTriangle className="w-5 h-5 text-yellow-600 mr-2" />
-                  )}
-                  Investment Analysis Summary
+              {/* Peroformance Summary */}
+              <div className="bg-gradient-to-br from-gray-50 to-blue-50 p-6 rounded-2xl">
+                <h4 className="font-bold text-gray-900 mb-4 flex items-center">
+                  <Info className="w-5 h-5 text-blue-600 mr-2" />
+                  Performance Summary
                 </h4>
                 <div className="text-sm text-gray-700 space-y-2">
                   <p>• <strong>Projected annual cash flow:</strong> ${(results.cashFlow * 12).toLocaleString()}</p>
-                  <p>• <strong>Total cash invested:</strong> ${results.downPayment.toLocaleString()}</p>
+                  <p>• <strong>Total cash invested:</strong> ${results.totalCashInvested.toLocaleString()}</p>
                   <p>• <strong>Loan amount:</strong> ${results.loanAmount.toLocaleString()}</p>
+                  <p>• <strong>DSCR (Debt Service Coverage):</strong> {formatPercent(results.dscr)}</p>
+                  <p>• <strong>Break-even occupancy:</strong> {formatPercent(results.breakEvenOccupancy)}%</p>
+                  <p>• <strong>Payback period:</strong> {results.paybackPeriod > 0 && results.paybackPeriod < 100 ? `${formatPercent(results.paybackPeriod)} years` : 'N/A'}</p>
+                  <p>• <strong>Operating expense ratio:</strong> {formatPercent(results.operatingExpenseRatio)}%</p>
+                  <p>• <strong>Monthly profit per $1,000 invested:</strong> ${formatPercent(results.profitPer1000)}</p>
+                  <p>• <strong>Annual return on investment:</strong> {formatPercent(results.cashOnCash)}%</p>
+
+                 <p className="pt-2 mt-3 text-xs text-gray-600 border-t border-gray-200">
+                    <strong>Note:</strong> This is a simplified calculation for informational purposes only. Consider additional factors like 
+                    market conditions, and local market trends. Always consult professionals before making any decisions.
+                  </p>
                   <p className="pt-2 text-xs text-gray-600 border-t border-gray-200">
-                    <strong>Note:</strong> This is a simplified calculation. Consider additional factors like 
-                    market conditions, property management costs, capital improvements, and local market trends.
+                    Colors, Icons, and Symbols used in this model are not investment ratings. They are simply visual cues to help you read the results more easily and should not be taken as advice or guidance.
+                  </p>
+                  <p className="pt-2 text-xs text-gray-600 border-t border-gray-200">
+                    All values are rounded to 2 decimal places (0.005+ rounds up, 0.004- rounds down).
                   </p>
                 </div>
               </div>
