@@ -4,6 +4,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import {DollarSign, TrendingUp, AlertTriangle, Info, CheckCircle, XCircle, BarChart3, Target, Play } from 'lucide-react';
 import Image from 'next/image';
 import { useMortgageRate } from '@/hooks/useMortgageRate';
+import { InfoTooltip } from '@/components/InfoTooltip';
 
 interface CalculatorResults {
   purchasePrice: number;
@@ -11,6 +12,8 @@ interface CalculatorResults {
   downPayment: number;
   closingCosts: number;
   rehabCosts: number;
+  loanType: string;
+  loanTerm: number;
   interestRate: number;
   propertyTax: number;
   insurance: number;
@@ -63,9 +66,19 @@ const formatPercent = (value: number): string => {
   return value.toFixed(2);
 };
 
+// Loan type options
+const LOAN_TYPES = [
+  { value: '30-year-fixed', label: '30-Year Fixed', term: 30 },
+  { value: '15-year-fixed', label: '15-Year Fixed', term: 15 },
+  { value: '20-year-fixed', label: '20-Year Fixed', term: 20 },
+  { value: '10-year-fixed', label: '10-Year Fixed', term: 10 },
+  { value: '5-1-arm', label: '5/1 ARM', term: 30 },
+  { value: '7-1-arm', label: '7/1 ARM', term: 30 },
+];
+
 export default function RentalPropertyCalculator() {
-  // Fetch current mortgage rate
-  const { rate: currentRate, lastUpdated, isLoading: rateLoading, error: rateError } = useMortgageRate();
+  // Fetch current mortgage rates
+  const { rates, lastUpdated, isLoading: rateLoading, error: rateError } = useMortgageRate();
 
   // Input states - using object to prevent re-render issues
   const [inputs, setInputs] = useState({
@@ -74,6 +87,8 @@ export default function RentalPropertyCalculator() {
     downPayment: '20000',
     closingCosts: '6000',
     rehabCosts: '0',
+    loanType: '30-year-fixed', // NEW
+    loanTerm: '30', // NEW
     interestRate: '5.99', // Will be updated by useEffect when rate loads
     propertyTax: '100',
     insurance: '100',
@@ -89,15 +104,16 @@ export default function RentalPropertyCalculator() {
   const [isCalculating, setIsCalculating] = useState(false);
   const [hasCalculated, setHasCalculated] = useState(false);
 
-  // Update interest rate when it loads from API
+  // Update interest rate when it loads from API or loan type changes
   useEffect(() => {
-    if (!rateLoading && !rateError) {
+    if (!rateLoading && !rateError && rates) {
+      const currentRate = rates[inputs.loanType as keyof typeof rates] || rates['30-year-fixed'];
       setInputs(prev => ({
         ...prev,
         interestRate: currentRate.toFixed(2)
       }));
     }
-  }, [currentRate, rateLoading, rateError]);
+  }, [rates, inputs.loanType, rateLoading, rateError]);
 
   // Stable input handler that doesn't cause re-renders
   const handleInputChange = useCallback((field: keyof typeof inputs, value: string) => {
@@ -109,6 +125,19 @@ export default function RentalPropertyCalculator() {
       [field]: sanitized
     }));
   }, []);
+
+// Handle loan type change - updates both loan type and term
+const handleLoanTypeChange = useCallback((loanType: string) => {
+  const selectedLoan = LOAN_TYPES.find(loan => loan.value === loanType);
+  
+  if (selectedLoan) {
+    setInputs(prev => ({
+      ...prev,
+      loanType: loanType,
+      loanTerm: selectedLoan.term.toString()
+    }));
+  }
+}, []);
 
   // Format input to 2 decimals when user leaves the field
   const handleInputBlur = useCallback((field: keyof typeof inputs) => {
@@ -136,6 +165,8 @@ export default function RentalPropertyCalculator() {
       downPayment: parseFloat(inputs.downPayment.replace(/,/g, '')) || 0,
       closingCosts: parseFloat(inputs.closingCosts.replace(/,/g, '')) || 0,
       rehabCosts: parseFloat(inputs.rehabCosts.replace(/,/g, '')) || 0,
+      loanType: inputs.loanType,
+      loanTerm: parseFloat(inputs.loanTerm) || 30,
       interestRate: parseFloat(inputs.interestRate) || 0,
       propertyTax: parseFloat(inputs.propertyTax.replace(/,/g, '')) || 0,
       insurance: parseFloat(inputs.insurance.replace(/,/g, '')) || 0,
@@ -149,9 +180,11 @@ export default function RentalPropertyCalculator() {
 
     // Perform calculations
     const loanAmount = roundTo2Decimals(values.purchasePrice - values.downPayment);
+    const loanTermYears = values.loanTerm;
     const monthlyRate = values.interestRate / 100 / 12;
+    const numPayments = loanTermYears * 12; // Use dynamic loan term instead of hardcoded 360
     const monthlyPayment = loanAmount > 0 ? 
-    roundTo2Decimals((loanAmount * monthlyRate * Math.pow(1 + monthlyRate, 360)) / (Math.pow(1 + monthlyRate, 360) - 1)) : 0;
+      roundTo2Decimals((loanAmount * monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1)) : 0;
     
     const grossIncome = roundTo2Decimals(values.monthlyRent);
     const vacancyLoss = roundTo2Decimals(grossIncome * (values.vacancy / 100));
@@ -245,12 +278,13 @@ export default function RentalPropertyCalculator() {
           </div>
         </div>
         
-        {/* Legal Disclaimer */}
+        {/* Disclaimer */}
         <div className="mt-6 p-4 bg-white/10 rounded-xl backdrop-blur-sm border border-white/20">
           <div className="flex items-start space-x-3">
             <AlertTriangle className="w-5 h-5 text-yellow-300 mt-0.5 flex-shrink-0" />
             <p className="text-sm text-white/90">
-              <strong>Disclaimer:</strong> The 1% rule is not a measure of profitability or a formal investment metric; it is simply a general rule of thumb.<br></br>
+              <strong>Disclaimer:</strong>This tool is for Informational and Educational Purposes Only.<br></br>
+              The 1% rule is not a measure of profitability or a formal investment metric; it is simply a general rule of thumb.<br></br>
               This calculator provides estimates for informational purposes only. 
               Results are not investment advice. Consult qualified professionals before making decisions.
               <br></br>
@@ -274,9 +308,9 @@ export default function RentalPropertyCalculator() {
             <div className="grid grid-cols-1 gap-6">
               {/* Purchase Price */}
               <div className="space-y-2">
-                <label className="block text-sm font-semibold text-gray-700">
+                <label className="block text-sm font-semibold text-gray-700 flex items-center">
                   Purchase Price
-                  <span className="ml-2 text-gray-400 cursor-help" title="Total purchase price of the property">ℹ️</span>
+                  <InfoTooltip text="Total purchase price of the property" />
                 </label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
@@ -295,9 +329,9 @@ export default function RentalPropertyCalculator() {
 
               {/* Monthly Rent */}
               <div className="space-y-2">
-                <label className="block text-sm font-semibold text-gray-700">
+                <label className="block text-sm font-semibold text-gray-700 flex items-center">
                   Monthly Rent
-                  <span className="ml-2 text-gray-400 cursor-help" title="Expected monthly rental income">ℹ️</span>
+                  <InfoTooltip  text="Expected monthly rental income" />
                 </label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
@@ -316,9 +350,9 @@ export default function RentalPropertyCalculator() {
 
               {/* Down Payment */}
               <div className="space-y-2">
-                <label className="block text-sm font-semibold text-gray-700">
+                <label className="block text-sm font-semibold text-gray-700 flex items-center">
                   Down Payment
-                  <span className="ml-2 text-gray-400 cursor-help" title="Cash down payment amount">ℹ️</span>
+                  <InfoTooltip text="Cash down payment amount"/>
                 </label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
@@ -335,13 +369,44 @@ export default function RentalPropertyCalculator() {
                 </div>
               </div>
 
+              {/* Loan Type - NEW FIELD */}
+              <div className="space-y-2">
+                <label className="block text-sm font-semibold text-gray-700 flex items-center">
+                  Loan Type
+                  <InfoTooltip text="Type of mortgage loan. Different loan types have different interest rates and terms."/>
+                </label>
+                <div className="relative">
+                  <select
+                    value={inputs.loanType}
+                    onChange={(e) => handleLoanTypeChange(e.target.value)}
+                    className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all text-gray-900 font-medium appearance-none bg-white cursor-pointer"
+                  >
+                    {LOAN_TYPES.map(loan => (
+                      <option key={loan.value} value={loan.value}>
+                        {loan.label}
+                      </option>
+                    ))}
+                  </select>
+                  {/* Dropdown arrow icon */}
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                    <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+                {/* Show loan term info */}
+                <p className="text-xs text-gray-500 mt-1">
+                  Term: {inputs.loanTerm} years
+                </p>
+              </div>
+
               {/* Interest Rate */}
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-gray-700">
                   Interest Rate
                   {!rateLoading && !rateError && lastUpdated && (
                     <span className="ml-2 text-xs text-green-600 font-normal">
-                      ✓ Current rate (updated {new Date(lastUpdated).toLocaleDateString()})
+                      ✓ Market Estimate (updated {new Date(lastUpdated).toLocaleDateString()})
                     </span>
                   )}
                   {rateError && (
@@ -349,7 +414,7 @@ export default function RentalPropertyCalculator() {
                       (using default rate)
                     </span>
                   )}
-                  <span className="ml-2 text-gray-400 cursor-help" title="Annual interest rate on the loan">ℹ️</span>
+                  <InfoTooltip text="Annual interest rate on the loan"/>
                 </label>
                 <div className="relative">
                   <input
@@ -380,7 +445,7 @@ export default function RentalPropertyCalculator() {
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-gray-700">
                   Closing Costs
-                  <span className="ml-2 text-gray-400 cursor-help" title="One-time costs: appraisal, title, escrow fees (typically 2-3% of purchase price)">ℹ️</span>
+                  <InfoTooltip text="One-time costs: appraisal, title, escrow fees (typically 2-3% of purchase price)"/>
                 </label>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
@@ -400,7 +465,7 @@ export default function RentalPropertyCalculator() {
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-gray-700">
                   Rehab/Repair Costs
-                  <span className="ml-2 text-gray-400 cursor-help" title="One-time renovation or repair costs before renting">ℹ️</span>
+                  <InfoTooltip text="One-time renovation or repair costs before renting"/>
                 </label>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
@@ -432,7 +497,7 @@ export default function RentalPropertyCalculator() {
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-gray-700">
                   Property Tax
-                  <span className="ml-2 text-gray-400 cursor-help" title="Monthly property tax amount">ℹ️</span>
+                  <InfoTooltip text="Monthly property tax amount"/>
                 </label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
@@ -453,7 +518,7 @@ export default function RentalPropertyCalculator() {
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-gray-700">
                   Insurance
-                  <span className="ml-2 text-gray-400 cursor-help" title="Monthly property insurance premium">ℹ️</span>
+                  <InfoTooltip text="Monthly property insurance premium"/>
                 </label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
@@ -473,8 +538,8 @@ export default function RentalPropertyCalculator() {
               {/* HOA Fees - NEW */}
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-gray-700">
-                  HOA Fees (Monthly)
-                  <span className="ml-2 text-gray-400 cursor-help" title="Homeowners Association fees (common for condos/townhomes)">ℹ️</span>
+                  HOA Fees
+                  <InfoTooltip text="Homeowners Association fees (common for condos/townhomes)"/>
                 </label>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
@@ -494,7 +559,7 @@ export default function RentalPropertyCalculator() {
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-gray-700">
                   Property Management
-                  <span className="ml-2 text-gray-400 cursor-help" title="Property management fee (typically 8-10% of rent or $100-200/month)">ℹ️</span>
+                  <InfoTooltip text="Property management fee (typically 8-10% of rent or $100-200/month)"/>
                 </label>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
@@ -514,7 +579,7 @@ export default function RentalPropertyCalculator() {
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-gray-700">
                   Maintenance
-                  <span className="ml-2 text-gray-400 cursor-help" title="Monthly maintenance and repairs budget">ℹ️</span>
+                  <InfoTooltip text="Monthly maintenance and repairs budget"/>
                 </label>
                 <div className="relative">
                   <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm">$</span>
@@ -534,8 +599,8 @@ export default function RentalPropertyCalculator() {
               {/* CapEx - NEW */}
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-gray-700">
-                  CapEx Reserve (Monthly)
-                  <span className="ml-2 text-gray-400 cursor-help" title="Capital expenditure reserve for major repairs (roof, HVAC, etc.). Recommended: $100-200/month">ℹ️</span>
+                  CapEx Reserve
+                  <InfoTooltip text="Capital expenditure reserve for major repairs (roof, HVAC, etc.). Recommended: $100-200/month"/>
                 </label>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
@@ -554,8 +619,8 @@ export default function RentalPropertyCalculator() {
               {/* Utilities - NEW */}
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-gray-700">
-                  Utilities (Owner Pays)
-                  <span className="ml-2 text-gray-400 cursor-help" title="Water, sewer, trash, or other utilities paid by landlord">ℹ️</span>
+                  Utilities (Owner Paid)
+                  <InfoTooltip text="Water, sewer, trash, or other utilities paid by landlord"/>
                 </label>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
@@ -574,7 +639,7 @@ export default function RentalPropertyCalculator() {
               <div className="space-y-2">
                 <label className="block text-sm font-semibold text-gray-700">
                   Vacancy Rate
-                  <span className="ml-2 text-gray-400 cursor-help" title="Expected vacancy percentage (typically 5-10%)">ℹ️</span>
+                  <InfoTooltip text="Expected vacancy percentage (typically 5-10%)"/>
                 </label>
                 <div className="relative">
                   <input
@@ -638,7 +703,7 @@ export default function RentalPropertyCalculator() {
               <li>2. Add your down payment amount and loan interest rate</li>
               <li>3. Input one-time costs (closing costs, rehab)</li>
               <li>4. Fill in monthly expenses (taxes, insurance, maintenance)</li>
-              <li>5. Click "Calculate" to see your investment analysis</li>
+              <li>5. Click "Perform" to see your analysis</li>
             </ol>
           </div>
         </div>

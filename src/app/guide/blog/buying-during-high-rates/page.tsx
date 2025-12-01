@@ -23,7 +23,7 @@ export default function HighRatesBlogPost() {
           </Link>
           
           <div className="inline-block px-4 py-1 bg-blue-500/30 rounded-full text-sm font-semibold mb-4">
-            Investment Strategy
+            Strategy
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
@@ -309,10 +309,10 @@ export default function HighRatesBlogPost() {
           {/* CTA Section */}
           <div className="mt-16 bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl p-8 border-2 border-blue-200">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
-              Ready to Analyze a Deal?
+              Ready to Analyze an Opportunity?
             </h3>
             <p className="text-gray-700 mb-6">
-              Use our free calculator to run the numbers on any rental property - regardless of interest rates.
+              Use our free calculator to run the numbers on any rental property.
             </p>
             <Link 
               href="/#calculator"

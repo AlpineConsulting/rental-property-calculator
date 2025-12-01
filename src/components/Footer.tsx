@@ -153,12 +153,10 @@ export default function Footer() {
             <div className="flex items-start space-x-4">
               <AlertTriangle className="w-6 h-6 text-yellow-500 mt-1 flex-shrink-0" />
               <div>
-                <p className="font-semibold text-gray-200 mb-2">Important Disclaimer</p>
+                <p className="font-semibold text-gray-200 mb-2">Disclaimer</p>
                 <p className="text-sm text-gray-300 leading-relaxed">
-                  This calculator provides estimates for informational and educational purposes only. 
-                  Results are not investment, financial, or legal advice. Real estate investments carry risks. 
-                  Consult with qualified professionals before making investment decisions. 
-                  Actual results may vary significantly from calculations.
+                This website, content and tools are provided for INFORMATIONAL AND 
+                EDUCATIONAL PURPOSES ONLY. Always consult qualified professionals before acting on financial information or making any decisions.
                 </p>
               </div>
             </div>
@@ -176,7 +174,7 @@ export default function Footer() {
             
             <div className="flex items-center space-x-6 text-sm text-gray-400">
               <span className="flex items-center">
-                Made for real estate investors
+                Made for Everyone
               </span>
             </div>
           </div>

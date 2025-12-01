@@ -137,7 +137,7 @@ export default function NegotiateBlogPost() {
                       <p><strong>Offer 10-15% below asking</strong> but justify it with comps</p>
                       <p><strong>Quick close</strong> if they need fast sale (14-21 days)</p>
                       <p><strong>Flexible closing date</strong> if they need time</p>
-                      <p><strong>Waive contingencies strategically</strong> (inspection but not financing)</p>
+                      <p><strong>Waive contingencies strategically</strong> (not financing)</p>
                     </div>
                   </div>
                 </div>
@@ -152,7 +152,7 @@ export default function NegotiateBlogPost() {
                       Your offer is just round one. The inspection gives you a second bite at the apple:
                     </p>
                     <ul className="space-y-1 text-gray-700 text-sm list-disc pl-5">
-                      <li>Get a thorough inspection ($400-600 well spent)</li>
+                      <li>Get a thorough inspection (money well spent)</li>
                       <li>Request repair credits for major items</li>
                       <li>Or request additional price reduction</li>
                       <li>Focus on safety/structural issues for maximum leverage</li>
@@ -174,10 +174,10 @@ export default function NegotiateBlogPost() {
               </div>
             </div>
 
-            <h2 className="text-3xl font-bold text-gray-900 mt-12 mb-6">Real Negotiation Example</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mt-12 mb-6">Negotiation Example</h2>
 
             <div className="bg-gradient-to-br from-green-50 to-blue-50 p-8 rounded-xl my-8">
-              <h4 className="font-bold text-gray-900 mb-6 text-xl">Case Study: $440,000 List to $395,000 Purchase</h4>
+              <h4 className="font-bold text-gray-900 mb-6 text-xl">$440,000 List to $395,000 Purchase</h4>
               
               <div className="space-y-4">
                 <div className="bg-white p-4 rounded border-l-4 border-gray-400">
@@ -187,33 +187,33 @@ export default function NegotiateBlogPost() {
 
                 <div className="bg-white p-4 rounded border-l-4 border-blue-500">
                   <p className="font-semibold text-blue-900 mb-2">Initial Offer: $400,000</p>
-                  <p className="text-gray-700 text-sm">Justified with 3 recent comps averaging $395k. Offered 14-day close and $5k earnest money.</p>
+                  <p className="text-gray-700 text-sm">Justified with 3 recent comps averaging $395k. Offer expedited close and $5k earnest money.</p>
                 </div>
 
                 <div className="bg-white p-4 rounded border-l-4 border-yellow-500">
                   <p className="font-semibold text-yellow-900 mb-2">Counter: $425,000</p>
-                  <p className="text-gray-700 text-sm">Seller countered high but showed willingness to negotiate.</p>
+                  <p className="text-gray-700 text-sm">Seller counters high but shows willingness to negotiate.</p>
                 </div>
 
                 <div className="bg-white p-4 rounded border-l-4 border-orange-500">
-                  <p className="font-semibold text-orange-900 mb-2">Our Counter: $410,000</p>
+                  <p className="font-semibold text-orange-900 mb-2">Buyer Counter: $410,000</p>
                   <p className="text-gray-700 text-sm">Moved up slightly, emphasized our financing is solid and close is guaranteed.</p>
                 </div>
 
                 <div className="bg-white p-4 rounded border-l-4 border-red-500">
                   <p className="font-semibold text-red-900 mb-2">Inspection Findings:</p>
-                  <p className="text-gray-700 text-sm">Roof needed $8,500 in repairs, HVAC was 18 years old</p>
+                  <p className="text-gray-700 text-sm">Roof needs $8,500 in repairs, HVAC is 18 years old</p>
                 </div>
 
                 <div className="bg-white p-4 rounded border-l-4 border-green-500">
                   <p className="font-semibold text-green-900 mb-2">Final Agreement: $395,000</p>
-                  <p className="text-gray-700 text-sm">Requested $15k reduction for repairs. Settled at $395k with seller providing $5k credit.</p>
+                  <p className="text-gray-700 text-sm">Request $15k reduction for repairs. Settle at $395k with seller providing $5k credit.</p>
                 </div>
               </div>
 
               <div className="mt-6 p-4 bg-green-100 rounded">
                 <p className="font-bold text-green-900 mb-1">Result: $45,000 saved (10.2% off asking)</p>
-                <p className="text-sm text-green-800">This increased our cash-on-cash return by 2.3 percentage points.</p>
+                <p className="text-sm text-green-800">This increases cash-on-cash return by 2.3 percentage points.</p>
               </div>
             </div>
 

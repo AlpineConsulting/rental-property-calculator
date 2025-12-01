@@ -86,7 +86,7 @@ export default function AboutPage() {
           </h1>
           
           <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
-            We believe every real estate investor deserves access to professional-grade 
+            We believe everyone deserves access to professional-grade 
             analysis tools without the high cost or complexity.
           </p>
 
@@ -147,7 +147,7 @@ export default function AboutPage() {
               
               <p className="text-gray-600 mb-6 leading-relaxed">
                 As active real estate investors ourselves, we found that most calculators were either 
-                too basic to be useful, or too expensive for beginning investors. We wanted to create 
+                too basic to be useful, or just too expensive. We wanted to create 
                 something that was both <strong>professional-grade</strong> and <strong>completely free</strong>.
               </p>
 

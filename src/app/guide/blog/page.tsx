@@ -24,7 +24,7 @@ export default function BlogPage() {
       slug: 'buying-during-high-rates',
       date: '2025-10-15',
       excerpt: 'Strategic advice for navigating rental property investments when mortgage rates are elevated. Learn when high rates create opportunities.',
-      category: 'Investment Strategy',
+      category: 'Strategy',
       readTime: '8 min read'
     },
     {
@@ -33,7 +33,7 @@ export default function BlogPage() {
       excerpt: 'The 1% rule doesn\'t work in San Francisco or New York. Here\'s how to adapt your screening process for high-cost coastal markets.',
       date: '2025-09-05',
       readTime: '5 min read',
-      category: 'Investment Strategy'
+      category: 'Strategy'
     },
     {
       title: 'How to Negotiate 10% Off Any Rental Property',

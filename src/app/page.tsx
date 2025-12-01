@@ -78,10 +78,6 @@ export default function HomePage() {
                 Instant Results
               </div>
               <div className="flex items-center text-gray-500 bg-white px-4 py-2 rounded-full shadow-md">
-                <Globe className="w-4 h-4 mr-2 text-purple-500" />
-                Available Worldwide
-              </div>
-              <div className="flex items-center text-gray-500 bg-white px-4 py-2 rounded-full shadow-md">
                 <Zap className="w-4 h-4 mr-2 text-yellow-500" />
                 Professional Grade
               </div>
@@ -98,7 +94,7 @@ export default function HomePage() {
               Everything You Need for Property Analysis
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Professional-grade metrics and insights in an intuitive interface designed for everyone
+              Professional-grade metrics and insights in an intuitive interface designed for everyone.
             </p>
           </div>
 
@@ -176,7 +172,7 @@ export default function HomePage() {
               Try Our Calculator
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Get instant analysis of rental potential with our professional-grade calculator
+              Get instant analysis of rental potential with our professional-grade calculator.
             </p>
           </div>
           
@@ -246,7 +242,7 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Trusted by Real Estate Investors Everywhere
+              Trusted by Real Estate Professionals Everywhere
             </h2>
             <p className="text-lg text-gray-600">
             </p>

@@ -49,7 +49,7 @@ export default function HiddenCostsBlogPost() {
           
           <div className="prose prose-lg max-w-none">
             <p className="text-xl text-gray-700 leading-relaxed mb-8">
-              You've run the numbers. The property cash flows. You're ready to buy your first rental—then reality hits. 
+              You've run the numbers. The property cash flows. You're ready to buy your first rental-then reality hits. 
               Here are the expenses seasoned landlords budget for that beginners almost always miss.
             </p>
 
@@ -341,7 +341,6 @@ export default function HiddenCostsBlogPost() {
           </div>
         </div>
         <div className="bg-gradient-to-r from-blue-600 to-green-600 rounded-2xl p-8 text-center text-white mt-12">
-              <DollarSign className="w-16 h-16 mx-auto mb-4" />
               <h3 className="text-2xl font-bold mb-4">Calculate Your True Expenses</h3>
               <p className="text-blue-100 mb-6">
                 Use our calculator with all the hidden costs included to see your real cash flow.
